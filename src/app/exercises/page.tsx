@@ -26,7 +26,7 @@ export default function ExerciseLibraryPage() {
         <button
           onClick={() => setFilter("all")}
           className={cn(
-            "shrink-0 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors",
+            "shrink-0 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors cursor-pointer",
             filter === "all"
               ? "bg-primary text-base-900 border-primary"
               : "border-white/10 text-white/60 hover:text-white"
@@ -39,7 +39,7 @@ export default function ExerciseLibraryPage() {
             key={cat.slug}
             onClick={() => setFilter(cat.slug)}
             className={cn(
-              "shrink-0 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors",
+              "shrink-0 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors cursor-pointer",
               filter === cat.slug ? "text-base-900 border-transparent" : "border-white/10 text-white/60 hover:text-white"
             )}
             style={filter === cat.slug ? { backgroundColor: cat.color } : undefined}

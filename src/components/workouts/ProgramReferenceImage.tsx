@@ -3,14 +3,16 @@
 import { useState } from "react";
 import { ImageIcon, X } from "lucide-react";
 import { CategorySlug } from "@/lib/types";
-import { useExerciseImage } from "@/lib/useExerciseImage";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 export function ProgramReferenceImage({ category }: { category: CategorySlug }) {
-  const { src } = useExerciseImage(category, "_program-reference");
+  const [hasError, setHasError] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const hasRef = category === "abs-cardio" || category === "shoulders";
 
-  if (!src) return null;
+  if (!hasRef || hasError) return null;
+
+  const src = `/images/${category}/_program-reference.png`;
 
   return (
     <>
@@ -26,8 +28,14 @@ export function ProgramReferenceImage({ category }: { category: CategorySlug }) 
           <span className="text-[11px] text-white/35">Tap to expand</span>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="Full workout program reference" className="w-full h-auto mt-3" />
+        <img
+          src={src}
+          alt="Full workout program reference"
+          className="w-full h-auto mt-3"
+          onError={() => setHasError(true)}
+        />
       </GlassCard>
+
 
       {expanded && (
         <div

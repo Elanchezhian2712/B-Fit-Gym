@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { Exercise } from "@/lib/types";
@@ -7,7 +8,6 @@ import { getCategory } from "@/lib/data/categories";
 import { ExerciseAnimation } from "./ExerciseAnimation";
 import { arrowDirection } from "./movementMeta";
 import { cn } from "@/lib/utils";
-import { useExerciseImage } from "@/lib/useExerciseImage";
 
 interface ExercisePoseCompareProps {
   exercise: Exercise;
@@ -49,19 +49,26 @@ function DirectionArrows({ direction }: { direction: string }) {
 export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompareProps) {
   const cat = getCategory(exercise.category);
   const direction = arrowDirection[exercise.animation];
-  const { src: customImage } = useExerciseImage(exercise.category, exercise.id);
+  const [imgError, setImgError] = useState(false);
+  const imageSrc = `/images/${exercise.category}/${exercise.id}.png`;
 
-  if (customImage) {
+  if (!imgError) {
     return (
-      <div className="relative overflow-hidden bg-black flex items-center justify-center w-full">
+      <div className={cn("relative overflow-hidden bg-base-950 flex items-center justify-center w-full", className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={customImage} alt={`${exercise.name} form demonstration`} className="w-full h-auto" />
-        <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/40 bg-black/30 px-2 py-0.5 rounded-full backdrop-blur-sm">
+        <img
+          src={imageSrc}
+          alt={`${exercise.name} form demonstration`}
+          onError={() => setImgError(true)}
+          className="w-full h-full object-contain max-h-[360px]"
+        />
+        <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/50 bg-black/50 px-2 py-0.5 rounded-full backdrop-blur-sm pointer-events-none">
           Form Demo
         </span>
       </div>
     );
   }
+
 
   return (
     <div

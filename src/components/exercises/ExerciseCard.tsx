@@ -12,14 +12,22 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
   const cat = getCategory(exercise.category);
 
   return (
-    <Link href={`/exercises/${exercise.id}`}>
-      <GlassCard hover className="overflow-hidden flex flex-col h-full animate-fadeIn">
-        <ExerciseDemo exercise={exercise} className="h-32" showLabel={false} />
+    <Link
+      href={`/exercises/${exercise.id}`}
+      className="block h-full group focus:outline-none cursor-pointer"
+    >
+      <GlassCard
+        hover
+        className="overflow-hidden flex flex-col h-full cursor-pointer transition-all duration-300"
+      >
+        <ExerciseDemo exercise={exercise} className="h-36 sm:h-40" showLabel={false} />
         <div className="p-4 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-2 mb-1">
-            <h3 className="text-[15px] font-bold text-white leading-snug">{exercise.name}</h3>
+            <h3 className="text-[15px] font-bold text-white group-hover:text-primary transition-colors leading-snug">
+              {exercise.name}
+            </h3>
           </div>
-          <p className="text-xs mb-3" style={{ color: cat.color }}>
+          <p className="text-xs mb-3 font-medium" style={{ color: cat.color }}>
             {exercise.targetMuscle}
           </p>
 
@@ -47,3 +55,4 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
     </Link>
   );
 }
+

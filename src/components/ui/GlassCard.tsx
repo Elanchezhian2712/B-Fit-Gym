@@ -11,7 +11,7 @@ export function GlassCard({ className, hover = false, children, ...props }: Glas
       className={cn(
         "rounded-2xl border border-white/[0.06] bg-base-700/60 backdrop-blur-xl shadow-card",
         hover &&
-          "transition-all duration-300 hover:border-white/10 hover:-translate-y-0.5 hover:shadow-glow",
+          "transition-all duration-300 hover:border-white/10 hover:-translate-y-0.5 hover:shadow-glow cursor-pointer",
         className
       )}
       {...props}

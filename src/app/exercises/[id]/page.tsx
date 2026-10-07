@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { notFound } from "next/navigation";
+import { useRouter, useParams, notFound } from "next/navigation";
 import { ChevronLeft, CheckCircle2, AlertTriangle, Repeat } from "lucide-react";
 import { getExerciseById } from "@/lib/data/exercises";
 import { getCategory } from "@/lib/data/categories";
@@ -15,8 +14,10 @@ import { Button } from "@/components/ui/Button";
 import { useFitnessStore } from "@/lib/store";
 import { useToast } from "@/components/common/ToastProvider";
 
-export default function ExerciseDetailPage({ params }: { params: { id: string } }) {
-  const exercise = getExerciseById(params.id);
+export default function ExerciseDetailPage({ params }: { params?: { id?: string } }) {
+  const routeParams = useParams();
+  const id = ((params?.id || routeParams?.id) as string) || "";
+  const exercise = id ? getExerciseById(id) : undefined;
   if (!exercise) notFound();
 
   const cat = getCategory(exercise.category);

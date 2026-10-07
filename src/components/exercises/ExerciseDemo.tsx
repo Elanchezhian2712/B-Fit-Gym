@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Exercise } from "@/lib/types";
 import { getCategory } from "@/lib/data/categories";
 import { ExerciseAnimation } from "./ExerciseAnimation";
 import { cn } from "@/lib/utils";
-import { useExerciseImage } from "@/lib/useExerciseImage";
 
 interface ExerciseDemoProps {
   exercise: Exercise;
@@ -15,15 +15,23 @@ interface ExerciseDemoProps {
 
 export function ExerciseDemo({ exercise, className, figureClassName, showLabel = true }: ExerciseDemoProps) {
   const cat = getCategory(exercise.category);
-  const { src: customImage } = useExerciseImage(exercise.category, exercise.id);
+  const [imgError, setImgError] = useState(false);
+  const imageSrc = `/images/${exercise.category}/${exercise.id}.png`;
 
-  if (customImage) {
+  if (!imgError) {
     return (
-      <div className={cn("relative overflow-hidden bg-black", className)}>
+      <div className={cn("relative overflow-hidden bg-base-950 flex items-center justify-center", className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={customImage} alt={`${exercise.name} form demonstration`} className="w-full h-full object-cover" />
+        <img
+          src={imageSrc}
+          alt={`${exercise.name} form demonstration`}
+          loading="lazy"
+          decoding="async"
+          onError={() => setImgError(true)}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
         {showLabel && (
-          <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/40 bg-black/30 px-2 py-0.5 rounded-full backdrop-blur-sm">
+          <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/50 bg-black/50 px-2 py-0.5 rounded-full backdrop-blur-sm pointer-events-none">
             Form Demo
           </span>
         )}
@@ -39,12 +47,12 @@ export function ExerciseDemo({ exercise, className, figureClassName, showLabel =
       }}
     >
       <div
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0 opacity-40 pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 30% 20%, ${cat.color}55, transparent 60%)`,
         }}
       />
-      <svg className="absolute inset-0 w-full h-full opacity-[0.06]" aria-hidden="true">
+      <svg className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none" aria-hidden="true">
         <defs>
           <pattern id={`grid-${exercise.id}`} width="18" height="18" patternUnits="userSpaceOnUse">
             <path d="M 18 0 L 0 0 0 18" fill="none" stroke="white" strokeWidth="0.5" />
@@ -60,10 +68,11 @@ export function ExerciseDemo({ exercise, className, figureClassName, showLabel =
       />
 
       {showLabel && (
-        <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/40 bg-black/30 px-2 py-0.5 rounded-full backdrop-blur-sm">
+        <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/50 bg-black/50 px-2 py-0.5 rounded-full backdrop-blur-sm pointer-events-none">
           Form Demo
         </span>
       )}
     </div>
   );
 }
+
