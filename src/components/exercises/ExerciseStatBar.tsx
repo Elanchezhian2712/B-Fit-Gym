@@ -60,10 +60,10 @@ export function ExerciseStatBar({ exercise }: ExerciseStatBarProps) {
 
   return (
     <div className="space-y-4 mb-7">
-      {/* 4 High-Impact Metric Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {/* 4 High-Impact Metric Cards in 2x2 Grid */}
+      <div className="grid grid-cols-2 gap-3">
         {/* Metric 1: Volume */}
-        <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.08] to-emerald-500/[0.02] p-4 flex flex-col justify-between hover:border-emerald-500/35 transition-colors">
+        <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.08] to-emerald-500/[0.02] p-3.5 sm:p-4 flex flex-col justify-between hover:border-emerald-500/35 transition-colors">
           <div>
             <div className="flex items-center justify-between gap-1 mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
@@ -78,14 +78,14 @@ export function ExerciseStatBar({ exercise }: ExerciseStatBarProps) {
               <span className="text-xs font-normal text-white/50">reps/set</span>
             </p>
           </div>
-          <p className="text-[11px] text-white/45 mt-2 flex items-center gap-1">
-            <Layers size={11} className="text-emerald-400/80" />
+          <p className="text-[11px] text-white/45 mt-2 flex items-center gap-1 truncate">
+            <Layers size={11} className="text-emerald-400/80 shrink-0" />
             {exercise.warmup ? `1 Warm-up + ${exercise.sets} Working Sets` : `${exercise.sets} Working Sets`}
           </p>
         </div>
 
         {/* Metric 2: Working Load */}
-        <div className="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.08] to-orange-500/[0.02] p-4 flex flex-col justify-between hover:border-orange-500/35 transition-colors">
+        <div className="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.08] to-orange-500/[0.02] p-3.5 sm:p-4 flex flex-col justify-between hover:border-orange-500/35 transition-colors">
           <div>
             <div className="flex items-center justify-between gap-1 mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-orange-400 flex items-center gap-1.5">
@@ -101,12 +101,12 @@ export function ExerciseStatBar({ exercise }: ExerciseStatBarProps) {
           </div>
           <p className="text-[11px] text-white/45 mt-2 flex items-center gap-1 truncate">
             <Sparkles size={11} className="text-orange-400/80 shrink-0" />
-            Progressive overload protocol
+            {exercise.isBodyweight ? "Bodyweight load" : "Progressive overload"}
           </p>
         </div>
 
         {/* Metric 3: Rest Interval */}
-        <div className="rounded-2xl border border-fuchsia-500/20 bg-gradient-to-br from-fuchsia-500/[0.08] to-fuchsia-500/[0.02] p-4 flex flex-col justify-between hover:border-fuchsia-500/35 transition-colors">
+        <div className="rounded-2xl border border-fuchsia-500/20 bg-gradient-to-br from-fuchsia-500/[0.08] to-fuchsia-500/[0.02] p-3.5 sm:p-4 flex flex-col justify-between hover:border-fuchsia-500/35 transition-colors">
           <div>
             <div className="flex items-center justify-between gap-1 mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-fuchsia-400 flex items-center gap-1.5">
@@ -126,13 +126,13 @@ export function ExerciseStatBar({ exercise }: ExerciseStatBarProps) {
               {exercise.rest}
             </p>
           </div>
-          <p className="text-[11px] text-white/45 mt-2 flex items-center gap-1">
-            Recovery between working sets
+          <p className="text-[11px] text-white/45 mt-2 flex items-center gap-1 truncate">
+            Recovery between sets
           </p>
         </div>
 
         {/* Metric 4: Target & Equipment */}
-        <div className="rounded-2xl border border-sky-500/20 bg-gradient-to-br from-sky-500/[0.08] to-sky-500/[0.02] p-4 flex flex-col justify-between hover:border-sky-500/35 transition-colors">
+        <div className="rounded-2xl border border-sky-500/20 bg-gradient-to-br from-sky-500/[0.08] to-sky-500/[0.02] p-3.5 sm:p-4 flex flex-col justify-between hover:border-sky-500/35 transition-colors">
           <div>
             <div className="flex items-center justify-between gap-1 mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
@@ -142,7 +142,7 @@ export function ExerciseStatBar({ exercise }: ExerciseStatBarProps) {
                 {exercise.difficulty}
               </span>
             </div>
-            <p className="text-xl sm:text-2xl font-extrabold text-white tracking-tight truncate">
+            <p className="text-lg sm:text-xl font-extrabold text-white tracking-tight line-clamp-1">
               {exercise.targetMuscle}
             </p>
           </div>

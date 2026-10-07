@@ -196,7 +196,7 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
                   </span>
                 )}
 
-                {exercise.isBodyweight && (
+                {exercise.isBodyweight && exercise.equipment.toLowerCase() !== "bodyweight" && (
                   <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-medium">
                     Bodyweight
                   </span>
