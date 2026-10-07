@@ -12,7 +12,7 @@ export interface DaySchedule {
 export const weeklySchedule: DaySchedule[] = [
   { day: "Monday", shortDay: "Mon", categories: ["shoulders", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
   { day: "Tuesday", shortDay: "Tue", categories: ["biceps", "triceps", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
-  { day: "Wednesday", shortDay: "Wed", categories: ["chest", "legs", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
+  { day: "Wednesday", shortDay: "Wed", categories: ["chest", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
   { day: "Thursday", shortDay: "Thu", categories: ["back", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
   { day: "Friday", shortDay: "Fri", categories: ["legs", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
   {

@@ -801,11 +801,11 @@ export const exercises: Exercise[] = [
     ],
   },
   {
-    id: "squats",
-    name: "Squats",
+    id: "smith-machine-squats",
+    name: "Smith Machine Squats",
     category: "legs",
     targetMuscle: "Quads / Glutes / Hamstrings",
-    equipment: "Barbell / Squat Rack",
+    equipment: "Smith Machine",
     difficulty: "Intermediate",
     isBodyweight: false,
     unilateral: false,
@@ -816,14 +816,14 @@ export const exercises: Exercise[] = [
     rest: "60-90 sec",
     animation: "squat",
     instructions: [
-      "Rest the bar across the upper back, feet shoulder-width apart.",
-      "Brace the core and sit back and down under control.",
-      "Lower to a comfortable depth keeping chest up.",
-      "Drive back up through the heels to standing.",
+      "Position the Smith machine bar across your upper traps and unhook the safety catches.",
+      "Stand with feet shoulder-width apart, slightly in front of the bar.",
+      "Brace the core, sit back and down under control until thighs are parallel to the floor.",
+      "Drive back up through your heels and re-hook the safety catches when finished.",
     ],
     commonMistakes: [
-      "Letting the knees cave inward.",
-      "Rising with the hips before the chest.",
+      "Placing feet directly under or behind the bar, stressing the knees.",
+      "Letting knees cave inward during the ascent.",
     ],
   },
   {
@@ -1224,8 +1224,13 @@ export function getExercisesByCategory(category: string, light = false) {
 }
 
 export function getExerciseById(id: string) {
-  if (id === "back-squats") {
-    return exercises.find((e) => e.id === "squats" || e.id === "back-squats");
+  if (id === "back-squats" || id === "squats" || id === "smith-squats") {
+    return exercises.find(
+      (e) =>
+        e.id === "smith-machine-squats" ||
+        e.id === "squats" ||
+        e.id === "back-squats"
+    );
   }
   return exercises.find((e) => e.id === id);
 }
