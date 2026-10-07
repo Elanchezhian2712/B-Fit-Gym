@@ -73,109 +73,46 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto pb-12">
-      {/* Top Breadcrumb & Quick Actions */}
+    <div className="space-y-6 w-full pb-12">
+      {/* Top Breadcrumb & Quick Category Actions */}
       <div className="flex items-center justify-between gap-3 text-sm">
         <Link
           href={`/exercises?category=${exercise.category}`}
           className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors group"
         >
-          <div className="w-7 h-7 rounded-lg bg-white/5 group-hover:bg-white/10 flex items-center justify-center transition-colors">
+          <div className="w-8 h-8 rounded-xl bg-white/5 group-hover:bg-white/10 flex items-center justify-center transition-colors">
             <ChevronLeft size={16} />
           </div>
-          <span>Back to {cat.name} Library</span>
+          <span className="font-medium">Back to {cat.name} Library</span>
         </Link>
 
         {/* Index counter in category */}
         {currentIndex >= 0 && (
-          <span className="text-xs font-mono text-white/40">
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/50">
             Exercise {currentIndex + 1} of {categoryExercises.length}
           </span>
         )}
       </div>
 
-      {/* Main Showcase Glass Card */}
-      <GlassCard className="overflow-hidden border-white/10 bg-base-900/80 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
-        {/* 4-Phase Hero Visual with Lightbox */}
-        <ExercisePoseCompare
-          exercise={exercise}
-          className="aspect-[16/10] sm:aspect-[16/9] md:h-[400px]"
-        />
+      {/* Main Expansive 2-Column Responsive Layout - Uses Full Left & Right Body */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* ================= LEFT COLUMN: Visual Demonstration & Coaching ================= */}
+        <div className="lg:col-span-7 xl:col-span-7 space-y-6">
+          {/* Hero Form Demonstration Card */}
+          <GlassCard className="overflow-hidden border-white/10 bg-base-900/80 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+            <ExercisePoseCompare
+              exercise={exercise}
+              className="h-[360px] sm:h-[440px] md:h-[480px] lg:h-[500px] xl:h-[540px] w-full"
+            />
+          </GlassCard>
 
-        {/* Card Body */}
-        <div className="p-5 sm:p-7 md:p-8 space-y-6">
-          {/* Header & Badges */}
-          <div>
-            <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-                {exercise.name}
-              </h1>
-
-              <Badge
-                className="px-3 py-1 text-xs uppercase font-extrabold tracking-wider"
-                style={{
-                  color: cat.color,
-                  borderColor: `${cat.color}60`,
-                  backgroundColor: `${cat.color}15`,
-                  boxShadow: `0 0 16px -2px ${cat.color}25`,
-                }}
-              >
-                {exercise.targetMuscle}
-              </Badge>
-            </div>
-
-            {/* Meta Tags Row */}
-            <div className="flex flex-wrap items-center gap-2.5 text-xs text-white/60">
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 font-medium">
-                {exercise.difficulty}
-              </span>
-
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 font-medium flex items-center gap-1.5">
-                <Dumbbell size={12} className="text-primary" />
-                {exercise.equipment}
-              </span>
-
-              {exercise.unilateral && (
-                <span className="px-2.5 py-1 rounded-md bg-secondary/10 border border-secondary/25 text-secondary-light font-medium">
-                  Single Side / Unilateral
-                </span>
-              )}
-
-              {exercise.isBodyweight && (
-                <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-medium">
-                  Bodyweight
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Safety Notice Banner */}
-          {exercise.safetyNote && (
-            <div className="flex gap-3.5 items-start p-4 rounded-2xl bg-amber-500/[0.08] border border-amber-500/30 shadow-[0_4px_20px_rgba(245,158,11,0.08)]">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
-                <ShieldAlert size={18} />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-0.5">
-                  Safety Precaution
-                </p>
-                <p className="text-xs sm:text-sm text-amber-200/90 leading-relaxed">
-                  {exercise.safetyNote}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Redesigned Stat & Progression Plan Component */}
-          <ExerciseStatBar exercise={exercise} />
-
-          {/* Execution & Mistakes Grid */}
-          <div className="grid md:grid-cols-2 gap-5">
+          {/* Form Instructions & Mistakes (Stacked in Left Column) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Form Instructions */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-3">
-              <div className="flex items-center gap-2 pb-2 border-b border-white/[0.08]">
-                <div className="w-6 h-6 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
-                  <Sparkles size={13} />
+            <GlassCard className="p-5 sm:p-6 rounded-2xl bg-base-900/60 border-white/[0.08] space-y-3.5">
+              <div className="flex items-center gap-2 pb-2.5 border-b border-white/[0.08]">
+                <div className="w-7 h-7 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+                  <Sparkles size={14} />
                 </div>
                 <h3 className="text-sm font-bold text-white tracking-wide">
                   Step-by-Step Form Execution
@@ -192,13 +129,13 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
                   </li>
                 ))}
               </ol>
-            </div>
+            </GlassCard>
 
             {/* Common Mistakes */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-3">
-              <div className="flex items-center gap-2 pb-2 border-b border-white/[0.08]">
-                <div className="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
-                  <AlertTriangle size={13} />
+            <GlassCard className="p-5 sm:p-6 rounded-2xl bg-base-900/60 border-white/[0.08] space-y-3.5">
+              <div className="flex items-center gap-2 pb-2.5 border-b border-white/[0.08]">
+                <div className="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                  <AlertTriangle size={14} />
                 </div>
                 <h3 className="text-sm font-bold text-white tracking-wide">
                   Common Pitfalls to Avoid
@@ -215,107 +152,177 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
                   </li>
                 ))}
               </ul>
+            </GlassCard>
+          </div>
+        </div>
+
+        {/* ================= RIGHT COLUMN: Overview, Stats, Plan & Action ================= */}
+        <div className="lg:col-span-5 xl:col-span-5 space-y-6">
+          {/* Exercise Info & Meta Card */}
+          <GlassCard className="p-5 sm:p-7 rounded-2xl bg-base-900/80 border-white/10 space-y-5">
+            <div>
+              <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
+                <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                  {exercise.name}
+                </h1>
+
+                <Badge
+                  className="px-3 py-1 text-xs uppercase font-extrabold tracking-wider"
+                  style={{
+                    color: cat.color,
+                    borderColor: `${cat.color}60`,
+                    backgroundColor: `${cat.color}15`,
+                    boxShadow: `0 0 16px -2px ${cat.color}25`,
+                  }}
+                >
+                  {exercise.targetMuscle}
+                </Badge>
+              </div>
+
+              {/* Meta Tags Row */}
+              <div className="flex flex-wrap items-center gap-2 text-xs text-white/60">
+                <span className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 font-medium">
+                  {exercise.difficulty}
+                </span>
+
+                <span className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 font-medium flex items-center gap-1.5">
+                  <Dumbbell size={12} className="text-primary" />
+                  {exercise.equipment}
+                </span>
+
+                {exercise.unilateral && (
+                  <span className="px-2.5 py-1 rounded-md bg-secondary/10 border border-secondary/25 text-secondary-light font-medium">
+                    Single Side / Unilateral
+                  </span>
+                )}
+
+                {exercise.isBodyweight && (
+                  <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-medium">
+                    Bodyweight
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Elevated Action Controls */}
-          <div className="pt-2 flex flex-col sm:flex-row gap-3">
-            <Button
-              size="lg"
-              className="flex-1 text-base font-extrabold shadow-[0_0_24px_rgba(198,241,53,0.3)] hover:shadow-[0_0_32px_rgba(198,241,53,0.5)] transition-all active:scale-[0.98]"
-              onClick={handleStart}
-            >
-              <Play size={18} fill="currentColor" /> Start in Active Session
-            </Button>
+            {/* Safety Notice Banner (if any) */}
+            {exercise.safetyNote && (
+              <div className="flex gap-3 items-start p-3.5 rounded-xl bg-amber-500/[0.08] border border-amber-500/30">
+                <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <ShieldAlert size={16} />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-0.5">
+                    Safety Precaution
+                  </p>
+                  <p className="text-xs text-amber-200/90 leading-relaxed">
+                    {exercise.safetyNote}
+                  </p>
+                </div>
+              </div>
+            )}
 
-            <Button
-              size="lg"
-              variant="outline"
-              className={`flex-1 text-sm font-bold transition-all ${
-                completedJustNow ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : ""
-              }`}
-              onClick={handleMarkComplete}
-            >
-              {completedJustNow ? (
-                <>
-                  <Check size={18} className="text-emerald-400" /> Completed!
-                </>
-              ) : (
-                <>
-                  <CheckCircle2 size={18} /> Mark Exercise Complete
-                </>
-              )}
-            </Button>
-          </div>
+            {/* Performance Stats & Set-by-Set Plan */}
+            <ExerciseStatBar exercise={exercise} />
 
-          {/* Optional Skip / Replace Link */}
-          {exercise.canSkipReplace && (
-            <div className="text-center pt-1">
-              <button
-                type="button"
-                onClick={() => {
-                  setSkipped((v) => !v);
-                  showToast(
-                    skipped ? "Exercise restored" : "Exercise marked as skipped/replaced",
-                    "info"
-                  );
-                }}
-                className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors underline underline-offset-4"
+            {/* Call-to-Action Buttons */}
+            <div className="space-y-3 pt-2">
+              <Button
+                size="lg"
+                className="w-full text-base font-extrabold shadow-[0_0_24px_rgba(198,241,53,0.3)] hover:shadow-[0_0_32px_rgba(198,241,53,0.5)] transition-all active:scale-[0.98]"
+                onClick={handleStart}
               >
-                <RotateCcw size={12} />
-                {skipped ? "Undo skip / Restore to routine" : "Can't do this? Skip or substitute"}
-              </button>
+                <Play size={18} fill="currentColor" /> Start in Active Session
+              </Button>
+
+              <Button
+                size="lg"
+                variant="outline"
+                className={`w-full text-sm font-bold transition-all ${
+                  completedJustNow ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : ""
+                }`}
+                onClick={handleMarkComplete}
+              >
+                {completedJustNow ? (
+                  <>
+                    <Check size={18} className="text-emerald-400" /> Completed!
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 size={18} /> Mark Exercise Complete
+                  </>
+                )}
+              </Button>
+
+              {/* Optional Skip / Replace Link */}
+              {exercise.canSkipReplace && (
+                <div className="text-center pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSkipped((v) => !v);
+                      showToast(
+                        skipped ? "Exercise restored" : "Exercise marked as skipped/replaced",
+                        "info"
+                      );
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors underline underline-offset-4 cursor-pointer"
+                  >
+                    <RotateCcw size={12} />
+                    {skipped ? "Undo skip / Restore to routine" : "Can't do this? Skip or substitute"}
+                  </button>
+                </div>
+              )}
+            </div>
+          </GlassCard>
+
+          {/* Sibling Exercise Navigation Carousel */}
+          {(prevExercise || nextExercise) && (
+            <div className="grid grid-cols-2 gap-3">
+              {prevExercise ? (
+                <Link
+                  href={`/exercises/${prevExercise.id}`}
+                  className="p-3.5 rounded-2xl bg-base-900/60 hover:bg-base-900 border border-white/5 hover:border-white/15 transition-all group flex items-center gap-3"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-white/5 group-hover:bg-white/10 flex items-center justify-center shrink-0">
+                    <ChevronLeft size={16} className="text-white/60 group-hover:text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] uppercase font-bold text-white/40 tracking-wider">
+                      Previous
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-white truncate group-hover:text-primary transition-colors">
+                      {prevExercise.name}
+                    </p>
+                  </div>
+                </Link>
+              ) : (
+                <div />
+              )}
+
+              {nextExercise ? (
+                <Link
+                  href={`/exercises/${nextExercise.id}`}
+                  className="p-3.5 rounded-2xl bg-base-900/60 hover:bg-base-900 border border-white/5 hover:border-white/15 transition-all group flex items-center justify-end gap-3 text-right"
+                >
+                  <div className="min-w-0">
+                    <p className="text-[10px] uppercase font-bold text-white/40 tracking-wider">
+                      Next
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-white truncate group-hover:text-primary transition-colors">
+                      {nextExercise.name}
+                    </p>
+                  </div>
+                  <div className="w-8 h-8 rounded-xl bg-white/5 group-hover:bg-white/10 flex items-center justify-center shrink-0">
+                    <ChevronRight size={16} className="text-white/60 group-hover:text-white" />
+                  </div>
+                </Link>
+              ) : (
+                <div />
+              )}
             </div>
           )}
         </div>
-      </GlassCard>
-
-      {/* Prev / Next Exercise Carousel Navigation */}
-      {(prevExercise || nextExercise) && (
-        <div className="grid grid-cols-2 gap-3 pt-2">
-          {prevExercise ? (
-            <Link
-              href={`/exercises/${prevExercise.id}`}
-              className="p-3.5 rounded-2xl bg-base-900/50 hover:bg-base-900 border border-white/5 hover:border-white/15 transition-all group flex items-center gap-3"
-            >
-              <div className="w-8 h-8 rounded-xl bg-white/5 group-hover:bg-white/10 flex items-center justify-center shrink-0">
-                <ChevronLeft size={16} className="text-white/60 group-hover:text-white" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[10px] uppercase font-bold text-white/40 tracking-wider">
-                  Previous Exercise
-                </p>
-                <p className="text-xs sm:text-sm font-bold text-white truncate group-hover:text-primary transition-colors">
-                  {prevExercise.name}
-                </p>
-              </div>
-            </Link>
-          ) : (
-            <div />
-          )}
-
-          {nextExercise ? (
-            <Link
-              href={`/exercises/${nextExercise.id}`}
-              className="p-3.5 rounded-2xl bg-base-900/50 hover:bg-base-900 border border-white/5 hover:border-white/15 transition-all group flex items-center justify-end gap-3 text-right"
-            >
-              <div className="min-w-0">
-                <p className="text-[10px] uppercase font-bold text-white/40 tracking-wider">
-                  Next Exercise
-                </p>
-                <p className="text-xs sm:text-sm font-bold text-white truncate group-hover:text-primary transition-colors">
-                  {nextExercise.name}
-                </p>
-              </div>
-              <div className="w-8 h-8 rounded-xl bg-white/5 group-hover:bg-white/10 flex items-center justify-center shrink-0">
-                <ChevronRight size={16} className="text-white/60 group-hover:text-white" />
-              </div>
-            </Link>
-          ) : (
-            <div />
-          )}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

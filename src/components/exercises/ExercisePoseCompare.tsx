@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp, Maximize2, X, ZoomIn, Sparkles } from "lucide-react";
+import { ArrowUp, Maximize2, X, ZoomIn } from "lucide-react";
 import { Exercise } from "@/lib/types";
 import { getCategory } from "@/lib/data/categories";
 import { ExerciseAnimation } from "./ExerciseAnimation";
@@ -46,14 +46,6 @@ function DirectionArrows({ direction }: { direction: string }) {
   );
 }
 
-// Phase titles for the 4-step sequence
-const PHASE_LABELS = [
-  { step: "01", name: "Initial Setup", cue: "Body alignment & grip" },
-  { step: "02", name: "Eccentric Load", cue: "Controlled descent" },
-  { step: "03", name: "Peak Stretch", cue: "Deep 90° range" },
-  { step: "04", name: "Lockout & Flex", cue: "Full contraction" },
-];
-
 export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompareProps) {
   const cat = getCategory(exercise.category);
   const direction = arrowDirection[exercise.animation];
@@ -85,7 +77,7 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
       <>
         <div
           className={cn(
-            "relative group overflow-hidden rounded-2xl bg-base-950 border border-white/10 flex flex-col items-center justify-center w-full transition-all duration-300",
+            "relative group overflow-hidden rounded-2xl bg-base-950 border border-white/10 flex items-center justify-center w-full transition-all duration-300",
             className
           )}
         >
@@ -93,7 +85,7 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
           <div
             className="absolute inset-0 pointer-events-none opacity-25 blur-3xl transition-opacity duration-500 group-hover:opacity-40"
             style={{
-              background: `radial-gradient(circle at 50% 50%, ${cat.color}60 0%, transparent 70%)`,
+              background: `radial-gradient(circle at 50% 50%, ${cat.color}60 0%, transparent 75%)`,
             }}
           />
 
@@ -109,31 +101,31 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
 
           {/* Top Info Bar */}
           <div className="absolute top-3 inset-x-3 z-20 flex items-center justify-between pointer-events-none">
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-base-900/80 backdrop-blur-md border border-white/10 shadow-lg">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-base-900/85 backdrop-blur-md border border-white/10 shadow-lg">
               <span
                 className="w-2 h-2 rounded-full animate-pulse"
                 style={{ backgroundColor: cat.color }}
               />
-              <span className="text-[10px] font-bold tracking-wider uppercase text-white/80">
-                4-Phase Form Breakdown
+              <span className="text-[11px] font-bold tracking-wider uppercase text-white/90">
+                Form Guide • {exercise.targetMuscle}
               </span>
             </div>
 
             <button
               type="button"
               onClick={() => setLightboxOpen(true)}
-              className="pointer-events-auto flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-base-900/80 hover:bg-base-800 backdrop-blur-md border border-white/10 text-white/70 hover:text-white text-[11px] font-semibold transition-all duration-200 active:scale-95 shadow-lg"
-              title="Inspect poses full screen"
+              className="pointer-events-auto flex items-center gap-1.5 px-3 py-1 rounded-full bg-base-900/85 hover:bg-base-800 backdrop-blur-md border border-white/15 text-white/80 hover:text-white text-xs font-semibold transition-all duration-200 active:scale-95 shadow-lg cursor-pointer"
+              title="Inspect image in full view"
             >
-              <Maximize2 size={12} />
-              <span className="hidden sm:inline">Inspect Form</span>
+              <Maximize2 size={13} />
+              <span>Full View</span>
             </button>
           </div>
 
-          {/* Main Showcase Image */}
+          {/* Main Showcase Image Container */}
           <div
             onClick={() => setLightboxOpen(true)}
-            className="relative z-10 w-full h-full flex items-center justify-center p-3 sm:p-5 cursor-zoom-in"
+            className="relative z-10 w-full h-full flex items-center justify-center p-3 sm:p-5 md:p-6 cursor-zoom-in"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -146,36 +138,15 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
                   setImgError(true);
                 }
               }}
-              className="w-full h-full object-contain max-h-[380px] drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-[1.01]"
+              className="w-full h-auto max-h-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-[1.01]"
             />
 
             {/* Hover zoom prompt */}
             <div className="absolute inset-0 bg-base-950/20 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-              <div className="px-3 py-1.5 rounded-full bg-base-900/90 border border-white/20 text-white text-xs font-semibold flex items-center gap-2 shadow-2xl">
+              <div className="px-3.5 py-1.5 rounded-full bg-base-900/90 border border-white/20 text-white text-xs font-semibold flex items-center gap-2 shadow-2xl">
                 <ZoomIn size={14} className="text-primary" />
                 Tap to inspect full resolution
               </div>
-            </div>
-          </div>
-
-          {/* Bottom Phase Sequence Bar */}
-          <div className="relative z-20 w-full border-t border-white/[0.08] bg-base-900/80 backdrop-blur-md px-3 py-2">
-            <div className="grid grid-cols-4 gap-2">
-              {PHASE_LABELS.map((p) => (
-                <div key={p.step} className="text-center group/phase">
-                  <div className="flex items-center justify-center gap-1 mb-0.5">
-                    <span className="text-[9px] font-mono font-bold text-white/40 group-hover/phase:text-primary transition-colors">
-                      {p.step}
-                    </span>
-                    <span className="text-[10px] font-bold text-white/80 truncate">
-                      {p.name}
-                    </span>
-                  </div>
-                  <p className="text-[9px] text-white/40 hidden sm:block truncate">
-                    {p.cue}
-                  </p>
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -188,7 +159,7 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setLightboxOpen(false)}
-              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center p-4 sm:p-8 cursor-zoom-out"
+              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center p-3 sm:p-6 cursor-zoom-out"
             >
               {/* Modal Container */}
               <motion.div
@@ -196,60 +167,39 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative max-w-5xl w-full bg-base-900 border border-white/15 rounded-3xl p-5 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] cursor-default flex flex-col gap-4 overflow-hidden"
+                className="relative max-w-6xl w-full max-h-[92vh] bg-base-900 border border-white/15 rounded-3xl p-4 sm:p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] cursor-default flex flex-col gap-3 overflow-hidden"
               >
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 shrink-0">
                   <div className="flex items-center gap-3">
                     <span
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: cat.color }}
                     />
                     <div>
-                      <h3 className="text-lg font-bold text-white">{exercise.name}</h3>
+                      <h3 className="text-base sm:text-lg font-bold text-white">{exercise.name}</h3>
                       <p className="text-xs text-white/50">
-                        High-Definition 4-Phase Biomechanical Breakdown
+                        High-Definition Form Demonstration
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={() => setLightboxOpen(false)}
-                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
                     title="Close"
                   >
                     <X size={18} />
                   </button>
                 </div>
 
-                {/* Lightbox Image */}
-                <div className="relative w-full rounded-2xl overflow-hidden bg-base-950/80 p-4 flex items-center justify-center min-h-[280px] max-h-[60vh]">
+                {/* Lightbox Image Container - full visibility without cutoff */}
+                <div className="relative w-full rounded-2xl overflow-y-auto bg-base-950/90 p-2 sm:p-4 flex items-center justify-center flex-1 min-h-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={imageSrc}
                     alt={`${exercise.name} full breakdown`}
-                    className="w-full h-auto max-h-[55vh] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+                    className="w-auto h-auto max-w-full max-h-[78vh] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
                   />
-                </div>
-
-                {/* Phase Guidance Cards */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
-                  {PHASE_LABELS.map((p, idx) => (
-                    <div
-                      key={p.step}
-                      className="p-3 rounded-xl bg-white/[0.03] border border-white/10"
-                    >
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] font-mono text-primary font-bold">
-                          Phase {p.step}
-                        </span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                      </div>
-                      <p className="text-xs font-semibold text-white mb-0.5">{p.name}</p>
-                      <p className="text-[11px] text-white/50">
-                        {exercise.instructions[idx] || p.cue}
-                      </p>
-                    </div>
-                  ))}
                 </div>
               </motion.div>
             </motion.div>
