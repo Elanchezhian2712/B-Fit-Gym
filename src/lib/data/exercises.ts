@@ -801,32 +801,6 @@ export const exercises: Exercise[] = [
     ],
   },
   {
-    id: "squats",
-    name: "Squats",
-    category: "legs",
-    targetMuscle: "Quads / Glutes / Hamstrings",
-    equipment: "Smith Machine / Squat Rack",
-    difficulty: "Intermediate",
-    isBodyweight: false,
-    unilateral: false,
-    warmup: "1 light-weight warm-up set × 12 reps",
-    workingWeight: "2.5 kg → 5 kg progression",
-    sets: 3,
-    reps: "10-12",
-    rest: "60-90 sec",
-    animation: "squat",
-    instructions: [
-      "Stand with your feet shoulder-width apart, resting the barbell across your upper traps.",
-      "Push your hips back and bend your knees until thighs are at least parallel to the floor.",
-      "At the bottom position, keep your chest up, back straight, and core tight.",
-      "Push through your heels and drive up, extending your knees and hips to return to standing.",
-    ],
-    commonMistakes: [
-      "Placing feet directly under or behind the bar, stressing the knees.",
-      "Rounding the back or letting knees collapse inward during the ascent.",
-    ],
-  },
-  {
     id: "hack-squat",
     name: "Hack Squat",
     category: "legs",
@@ -1225,18 +1199,14 @@ export function getExercisesByCategory(category: string, light = false) {
 
 export function getExerciseById(id: string) {
   if (
-    id === "smith-machine-squats" ||
     id === "squats" ||
+    id === "squats-bodyweight" ||
+    id === "smith-machine-squats" ||
     id === "back-squats" ||
     id === "smith-squat" ||
     id === "smith-squats"
   ) {
-    return exercises.find(
-      (e) =>
-        e.id === "smith-machine-squats" ||
-        e.id === "squats" ||
-        e.id === "back-squats"
-    );
+    return exercises.find((e) => e.id === "squats-bodyweight" || e.id === "squats");
   }
   return exercises.find((e) => e.id === id);
 }
