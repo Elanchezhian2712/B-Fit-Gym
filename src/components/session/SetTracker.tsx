@@ -29,7 +29,7 @@ export function SetTracker({
   return (
     <div
       className={cn(
-        "grid grid-cols-[auto_1fr_1fr_auto] items-center gap-3 p-3.5 rounded-xl border transition-colors",
+        "grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2 sm:gap-3 p-2.5 sm:p-3.5 rounded-xl border transition-colors",
         set.completed ? "border-transparent" : isWarmup ? "border-muscle-legs/25 bg-muscle-legs/[0.04]" : "border-white/[0.06] bg-white/[0.02]"
       )}
       style={
@@ -40,8 +40,8 @@ export function SetTracker({
     >
       <div
         className={cn(
-          "h-8 rounded-lg flex items-center justify-center font-bold shrink-0",
-          isWarmup ? "px-2 text-[10px] uppercase tracking-wide" : "w-8 text-sm"
+          "h-7 sm:h-8 rounded-lg flex items-center justify-center font-bold shrink-0",
+          isWarmup ? "px-1.5 sm:px-2 text-[9px] sm:text-[10px] uppercase tracking-wide" : "w-7 sm:w-8 text-xs sm:text-sm"
         )}
         style={{ backgroundColor: `${isWarmup ? warmupColor : accent}22`, color: isWarmup ? warmupColor : accent }}
       >
@@ -80,7 +80,7 @@ export function SetTracker({
         onClick={onToggleComplete}
         aria-label={set.completed ? "Mark set incomplete" : "Mark set complete"}
         className={cn(
-          "w-8 h-8 rounded-lg flex items-center justify-center border-2 transition-all shrink-0",
+          "w-8 h-8 rounded-lg flex items-center justify-center border-2 transition-all shrink-0 cursor-pointer",
           set.completed ? "border-transparent" : "border-white/20 hover:border-white/40"
         )}
         style={set.completed ? { backgroundColor: isWarmup ? warmupColor : accent } : undefined}

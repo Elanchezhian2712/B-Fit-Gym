@@ -86,31 +86,31 @@ export default function TodaysWorkoutPage() {
           return (
             <div key={catSlug} className="space-y-4">
               <GlassCard
-                className="p-6 flex items-center justify-between flex-wrap gap-4"
+                className="p-4 sm:p-6 flex items-center justify-between flex-wrap gap-4"
                 style={{ backgroundImage: `linear-gradient(135deg, ${cat.color}1f 0%, transparent 70%)` }}
               >
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wide" style={{ color: cat.color }}>
                     {cat.name}
                   </p>
-                  <h2 className="text-xl font-bold text-white mt-1">
+                  <h2 className="text-lg sm:text-xl font-bold text-white mt-1">
                     {cat.name} Workout{cat.level ? ` – ${cat.level}` : ""}
                   </h2>
-                  <div className="flex items-center gap-4 mt-3 text-white/55 text-sm">
+                  <div className="flex items-center gap-4 mt-2.5 sm:mt-3 text-white/55 text-xs sm:text-sm">
                     <span className="flex items-center gap-1.5">
-                      <Dumbbell size={15} /> {exs.length} Exercises
+                      <Dumbbell size={14} /> {exs.length} Exercises
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Clock size={15} /> ~{cat.estimatedDuration} min
+                      <Clock size={14} /> ~{cat.estimatedDuration} min
                     </span>
                   </div>
                 </div>
                 <Link href={`/session/${catSlug}`}>
-                  <Button size="lg">Start Workout</Button>
+                  <Button size="lg" className="w-full sm:w-auto">Start Workout</Button>
                 </Link>
               </GlassCard>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 min-[440px]:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
                 {exs.map((ex) => (
                   <ExerciseCard key={ex.id} exercise={ex} />
                 ))}

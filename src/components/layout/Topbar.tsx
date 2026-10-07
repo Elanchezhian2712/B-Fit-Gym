@@ -20,7 +20,7 @@ export function Topbar() {
   useEffect(() => setMenuOpen(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-30 h-20 flex items-center justify-between px-4 md:px-8 border-b border-white/[0.06] bg-base-800/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 h-16 sm:h-20 flex items-center justify-between px-3.5 sm:px-6 md:px-8 border-b border-white/[0.06] bg-base-800/80 backdrop-blur-xl">
       <div className="flex items-center gap-3">
         <button
           className="md:hidden p-2 -ml-2 rounded-lg text-white/70 hover:bg-white/5"

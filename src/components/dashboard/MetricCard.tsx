@@ -12,18 +12,20 @@ interface MetricCardProps {
 
 export function MetricCard({ label, value, sub, icon: Icon, accent = "#C6F135" }: MetricCardProps) {
   return (
-    <GlassCard hover className="p-5 animate-fadeIn">
-      <div className="flex items-start justify-between mb-4">
-        <p className="text-xs font-semibold text-white/45 uppercase tracking-wide">{label}</p>
-        <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-          style={{ backgroundColor: `${accent}1a` }}
-        >
-          <Icon size={17} style={{ color: accent }} />
+    <GlassCard hover className="p-3.5 sm:p-5 animate-fadeIn flex flex-col justify-between">
+      <div>
+        <div className="flex items-start justify-between gap-1.5 mb-2 sm:mb-3">
+          <p className="text-[11px] sm:text-xs font-semibold text-white/45 uppercase tracking-wide truncate">{label}</p>
+          <div
+            className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0"
+            style={{ backgroundColor: `${accent}1a` }}
+          >
+            <Icon size={15} className="sm:w-[17px] sm:h-[17px]" style={{ color: accent }} />
+          </div>
         </div>
+        <p className="text-xl sm:text-2xl md:text-[28px] font-bold text-white leading-tight break-words">{value}</p>
       </div>
-      <p className={cn("text-2xl md:text-[28px] font-bold text-white leading-none")}>{value}</p>
-      {sub && <p className="text-xs text-white/40 mt-2">{sub}</p>}
+      {sub && <p className="text-[11px] sm:text-xs text-white/40 mt-1.5 sm:mt-2 truncate" title={sub}>{sub}</p>}
     </GlassCard>
   );
 }

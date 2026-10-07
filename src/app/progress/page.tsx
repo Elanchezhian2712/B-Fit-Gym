@@ -30,12 +30,14 @@ export default function ProgressPage() {
         <p className="text-white/45 text-sm mt-1">Track your transformation over time.</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         <MetricCard label="Starting" value={mounted ? `${startingWeight} kg` : "--"} icon={Scale} accent="#4D7CFE" />
         <MetricCard label="Current" value={mounted ? `${currentWeight.toFixed(2)} kg` : "--"} icon={Scale} accent="#A855F7" />
         <MetricCard label="Goal" value={mounted ? `${goalWeight} kg` : "--"} icon={Target} accent="#C6F135" />
         <MetricCard label="Lost" value={mounted ? `${weightLost.toFixed(2)} kg` : "--"} icon={TrendingDown} accent="#34D399" />
-        <MetricCard label="Streak" value={mounted ? `${streak}d` : "--"} icon={Flame} accent="#FF5C5C" />
+        <div className="col-span-2 sm:col-span-1">
+          <MetricCard label="Streak" value={mounted ? `${streak}d` : "--"} icon={Flame} accent="#FF5C5C" />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

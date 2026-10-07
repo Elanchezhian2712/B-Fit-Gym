@@ -53,10 +53,10 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
       </Link>
 
       <GlassCard className="overflow-hidden">
-        <ExercisePoseCompare exercise={exercise} className="h-56 md:h-72" />
-        <div className="p-6 md:p-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap mb-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-white">{exercise.name}</h1>
+        <ExercisePoseCompare exercise={exercise} className="h-52 sm:h-64 md:h-72" />
+        <div className="p-4 sm:p-6 md:p-8">
+          <div className="flex items-start justify-between gap-3 flex-wrap mb-2">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{exercise.name}</h1>
             <Badge style={{ color: cat.color, borderColor: `${cat.color}50`, backgroundColor: `${cat.color}15` }}>
               {exercise.targetMuscle}
             </Badge>

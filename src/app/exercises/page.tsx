@@ -22,11 +22,11 @@ export default function ExerciseLibraryPage() {
         <p className="text-white/45 text-sm mt-1">{exercises.length} exercises across 7 muscle groups.</p>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 md:mx-0 md:px-0">
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-3.5 px-3.5 sm:mx-0 sm:px-0">
         <button
           onClick={() => setFilter("all")}
           className={cn(
-            "shrink-0 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors cursor-pointer",
+            "shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border transition-colors cursor-pointer",
             filter === "all"
               ? "bg-primary text-base-900 border-primary"
               : "border-white/10 text-white/60 hover:text-white"
@@ -39,7 +39,7 @@ export default function ExerciseLibraryPage() {
             key={cat.slug}
             onClick={() => setFilter(cat.slug)}
             className={cn(
-              "shrink-0 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors cursor-pointer",
+              "shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border transition-colors cursor-pointer",
               filter === cat.slug ? "text-base-900 border-transparent" : "border-white/10 text-white/60 hover:text-white"
             )}
             style={filter === cat.slug ? { backgroundColor: cat.color } : undefined}
@@ -49,7 +49,7 @@ export default function ExerciseLibraryPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 min-[440px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
         {filtered.map((ex) => (
           <ExerciseCard key={ex.id} exercise={ex} />
         ))}

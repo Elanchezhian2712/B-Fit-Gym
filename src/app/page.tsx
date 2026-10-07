@@ -43,7 +43,7 @@ export default function DashboardPage() {
         <p className="text-white/45 text-sm mt-1">Ready for today&apos;s workout?</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <MetricCard
           label="Current Weight"
           value={mounted ? `${currentWeight.toFixed(2)} kg` : "--"}
@@ -71,14 +71,14 @@ export default function DashboardPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           <WorkoutCalendar />
           <WeeklyProgressChart />
         </div>
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <TodayWorkoutCard />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <MetricCard
               label="Completed"
               value={mounted ? `${completedThisWeek}` : "--"}

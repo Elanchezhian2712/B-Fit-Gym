@@ -11,9 +11,9 @@ export function WorkoutCalendar() {
   const todayIndex = jsDay === 0 ? 6 : jsDay - 1;
 
   return (
-    <GlassCard className="p-5 animate-fadeIn">
-      <h3 className="text-sm font-bold text-white mb-4">This Week</h3>
-      <div className="grid grid-cols-7 gap-2">
+    <GlassCard className="p-3.5 sm:p-5 animate-fadeIn">
+      <h3 className="text-sm font-bold text-white mb-3 sm:mb-4">This Week</h3>
+      <div className="grid grid-cols-7 gap-1 sm:gap-2">
         {weeklySchedule.map((day, i) => {
           const isToday = i === todayIndex;
           const primaryCat = day.categories[0];
@@ -22,11 +22,11 @@ export function WorkoutCalendar() {
             <div
               key={day.day}
               className={cn(
-                "flex flex-col items-center gap-2 rounded-xl py-3 px-1 border transition-colors",
+                "flex flex-col items-center gap-1.5 sm:gap-2 rounded-xl py-2 sm:py-3 px-0.5 sm:px-1 border transition-colors",
                 isToday ? "border-primary/40 bg-primary/[0.06]" : "border-white/[0.05] bg-white/[0.02]"
               )}
             >
-              <span className={cn("text-[10px] font-bold uppercase", isToday ? "text-primary" : "text-white/40")}>
+              <span className={cn("text-[9px] sm:text-[10px] font-bold uppercase", isToday ? "text-primary" : "text-white/40")}>
                 {day.shortDay}
               </span>
               {day.isRestDay ? (
