@@ -50,7 +50,11 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
   const cat = getCategory(exercise.category);
   const direction = arrowDirection[exercise.animation];
   const [imgError, setImgError] = useState(false);
-  const imageSrc = `/images/${exercise.category}/${exercise.id}.png`;
+  const [usePngFallback, setUsePngFallback] = useState(false);
+
+  const imageSrc = usePngFallback
+    ? `/images/${exercise.category}/${exercise.id}.png`
+    : `/images/${exercise.category}/${exercise.id}.webp`;
 
   if (!imgError) {
     return (
@@ -59,7 +63,13 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
         <img
           src={imageSrc}
           alt={`${exercise.name} form demonstration`}
-          onError={() => setImgError(true)}
+          onError={() => {
+            if (!usePngFallback) {
+              setUsePngFallback(true);
+            } else {
+              setImgError(true);
+            }
+          }}
           className="w-full h-full object-contain max-h-[360px]"
         />
         <span className="absolute bottom-2.5 right-3 z-10 text-[9px] font-bold uppercase tracking-wider text-white/50 bg-black/50 px-2 py-0.5 rounded-full backdrop-blur-sm pointer-events-none">
@@ -68,6 +78,7 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
       </div>
     );
   }
+
 
 
   return (

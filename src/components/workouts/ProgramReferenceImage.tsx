@@ -7,12 +7,15 @@ import { GlassCard } from "@/components/ui/GlassCard";
 
 export function ProgramReferenceImage({ category }: { category: CategorySlug }) {
   const [hasError, setHasError] = useState(false);
+  const [usePngFallback, setUsePngFallback] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const hasRef = category === "abs-cardio" || category === "shoulders";
 
   if (!hasRef || hasError) return null;
 
-  const src = `/images/${category}/_program-reference.png`;
+  const src = usePngFallback
+    ? `/images/${category}/_program-reference.png`
+    : `/images/${category}/_program-reference.webp`;
 
   return (
     <>
@@ -32,7 +35,13 @@ export function ProgramReferenceImage({ category }: { category: CategorySlug }) 
           src={src}
           alt="Full workout program reference"
           className="w-full h-auto mt-3"
-          onError={() => setHasError(true)}
+          onError={() => {
+            if (!usePngFallback) {
+              setUsePngFallback(true);
+            } else {
+              setHasError(true);
+            }
+          }}
         />
       </GlassCard>
 

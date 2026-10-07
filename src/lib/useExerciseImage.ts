@@ -12,12 +12,25 @@ const EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
  */
 export function useExerciseImage(category: string, id: string) {
   const [hasError, setHasError] = useState(false);
-  const src = hasError ? null : `/images/${category}/${id}.png`;
+  const [usePng, setUsePng] = useState(false);
+
+  const src = hasError
+    ? null
+    : usePng
+    ? `/images/${category}/${id}.png`
+    : `/images/${category}/${id}.webp`;
 
   return {
     src,
     checked: true,
-    onError: () => setHasError(true),
+    onError: () => {
+      if (!usePng) {
+        setUsePng(true);
+      } else {
+        setHasError(true);
+      }
+    },
   };
 }
+
 

@@ -16,7 +16,11 @@ interface ExerciseDemoProps {
 export function ExerciseDemo({ exercise, className, figureClassName, showLabel = true }: ExerciseDemoProps) {
   const cat = getCategory(exercise.category);
   const [imgError, setImgError] = useState(false);
-  const imageSrc = `/images/${exercise.category}/${exercise.id}.png`;
+  const [usePngFallback, setUsePngFallback] = useState(false);
+
+  const imageSrc = usePngFallback
+    ? `/images/${exercise.category}/${exercise.id}.png`
+    : `/images/${exercise.category}/${exercise.id}.webp`;
 
   if (!imgError) {
     return (
@@ -27,7 +31,13 @@ export function ExerciseDemo({ exercise, className, figureClassName, showLabel =
           alt={`${exercise.name} form demonstration`}
           loading="lazy"
           decoding="async"
-          onError={() => setImgError(true)}
+          onError={() => {
+            if (!usePngFallback) {
+              setUsePngFallback(true);
+            } else {
+              setImgError(true);
+            }
+          }}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
         {showLabel && (
@@ -38,6 +48,7 @@ export function ExerciseDemo({ exercise, className, figureClassName, showLabel =
       </div>
     );
   }
+
 
   return (
     <div
