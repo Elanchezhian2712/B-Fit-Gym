@@ -32,7 +32,7 @@ export function getTodaySchedule(): DaySchedule {
   return weeklySchedule[index];
 }
 
-// Shoulders day is the full-abs day; every other training day gets the light 3-exercise abs finisher.
+// Shoulders and legs days get the full abs workout; every other training day gets the light 3-exercise abs finisher.
 export function isFullAbsDay(categories: CategorySlug[]): boolean {
-  return categories.includes("shoulders");
+  return categories.includes("shoulders") || categories.includes("legs");
 }
