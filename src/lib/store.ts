@@ -12,7 +12,7 @@ import {
 } from "@/lib/types";
 import { exercises } from "@/lib/data/exercises";
 import { getExercisesByCategory } from "@/lib/data/exercises";
-import { getTodaySchedule, isFullAbsDay } from "@/lib/data/schedule";
+import { getTodaySchedule, isFullAbsDay, isDedicatedLegDay } from "@/lib/data/schedule";
 import { parseWarmup } from "@/lib/utils";
 
 function todayISO() {
@@ -148,7 +148,13 @@ export const useFitnessStore = create<FitnessState>()(
       setGoalWeight: (weight) => set({ goalWeight: weight }),
 
       startSession: (category) => {
-        const light = category === "abs-cardio" && !isFullAbsDay(getTodaySchedule().categories);
+        const todayCategories = getTodaySchedule().categories;
+        const light =
+          category === "abs-cardio"
+            ? !isFullAbsDay(todayCategories)
+            : category === "legs"
+            ? !isDedicatedLegDay(todayCategories)
+            : undefined;
         const exIds = getExercisesByCategory(category, light).map((e) => e.id);
         set({
           activeSession: {

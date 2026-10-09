@@ -32,7 +32,14 @@ export function getTodaySchedule(): DaySchedule {
   return weeklySchedule[index];
 }
 
-// Shoulders and legs days get the full abs workout; every other training day gets the light 3-exercise abs finisher.
+// A dedicated legs day (no chest paired with it) gets the Leg Press/Hamstring Curl variant;
+// a Chest+Legs combo day gets the Hack Squat/Leg Extension/Lunge variant instead.
+export function isDedicatedLegDay(categories: CategorySlug[]): boolean {
+  return categories.includes("legs") && !categories.includes("chest");
+}
+
+// Shoulders day and the dedicated legs day get the full abs workout; every other training day
+// (including the Chest+Legs combo day) gets the light 3-exercise abs finisher.
 export function isFullAbsDay(categories: CategorySlug[]): boolean {
-  return categories.includes("shoulders") || categories.includes("legs");
+  return categories.includes("shoulders") || isDedicatedLegDay(categories);
 }

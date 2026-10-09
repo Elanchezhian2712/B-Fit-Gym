@@ -1,7 +1,7 @@
 "use client";
 
 import { Moon, Footprints, BedDouble } from "lucide-react";
-import { getTodaySchedule, isFullAbsDay } from "@/lib/data/schedule";
+import { getTodaySchedule, isFullAbsDay, isDedicatedLegDay } from "@/lib/data/schedule";
 import { getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -34,6 +34,7 @@ export default function TodaysWorkoutPage() {
   const showRecoveryDay = !tookRestToday && schedule.isRecoveryDay && categories.length === 0;
   const canTakeRest = !tookRestToday && !showRestDay && categories.length > 0;
   const fullAbsDay = isFullAbsDay(categories);
+  const dedicatedLegDay = isDedicatedLegDay(categories);
 
   const completedToday = new Set(
     workoutSessions.filter((s) => s.date === date && s.completed).map((s) => s.category)
@@ -42,7 +43,10 @@ export default function TodaysWorkoutPage() {
   const categoryData = categories.map((slug) => ({
     slug,
     category: getCategory(slug),
-    exercises: getExercisesByCategory(slug, slug === "abs-cardio" && !fullAbsDay),
+    exercises: getExercisesByCategory(
+      slug,
+      slug === "abs-cardio" ? !fullAbsDay : slug === "legs" ? !dedicatedLegDay : undefined
+    ),
     completed: completedToday.has(slug),
   }));
 

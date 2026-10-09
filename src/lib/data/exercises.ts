@@ -853,6 +853,32 @@ export const exercises: Exercise[] = [
     ],
   },
   {
+    id: "lying-leg-curl",
+    name: "Hamstring Curl",
+    category: "legs",
+    targetMuscle: "Hamstrings",
+    equipment: "Lying Leg Curl Machine",
+    difficulty: "Intermediate",
+    isBodyweight: false,
+    unilateral: false,
+    warmup: "1 light-weight warm-up set × 12 reps",
+    workingWeight: "2.5 kg → 5 kg progression",
+    sets: 3,
+    reps: "10-15",
+    rest: "60-90 sec",
+    animation: "legcurl",
+    instructions: [
+      "Lie face down on the machine with the ankle pad resting just above your heels.",
+      "Grip the handles and keep your hips pressed into the bench.",
+      "Curl your heels up toward your glutes, squeezing the hamstrings at the top.",
+      "Lower back down under control to a full stretch without dropping the weight.",
+    ],
+    commonMistakes: [
+      "Lifting the hips off the bench to generate momentum.",
+      "Using a fast, jerky tempo instead of a controlled curl.",
+    ],
+  },
+  {
     id: "leg-extension",
     name: "Leg Extension",
     category: "legs",
@@ -1237,13 +1263,46 @@ export const exercises: Exercise[] = [
 
 export const LIGHT_ABS_EXERCISE_IDS = ["plank", "leg-raise", "ab-crunch-machine"];
 
-export function getExercisesByCategory(category: string, light = false) {
+// Chest+Legs combo day (e.g. Wednesday): a trimmed set that skips the Leg Press/Hamstring Curl machines.
+export const CHEST_DAY_LEG_EXERCISE_IDS = [
+  "squats-bodyweight",
+  "hack-squat",
+  "leg-extension",
+  "dumbbell-lunge",
+  "seated-calf-raise",
+  "standing-calf-raise",
+];
+
+// Dedicated Legs day (e.g. Friday): swaps in Leg Press + Hamstring Curl, skips Hack Squat/Leg Extension/Lunge.
+export const LEG_DAY_EXERCISE_IDS = [
+  "squats-bodyweight",
+  "leg-press",
+  "lying-leg-curl",
+  "seated-calf-raise",
+  "standing-calf-raise",
+];
+
+/**
+ * `light` is undefined for a plain "give me everything in this category" lookup (exercise library,
+ * category totals). Day-aware pages pass an explicit boolean: for abs-cardio, light picks the
+ * 3-exercise finisher; for legs, light picks the chest-day subset and !light picks the leg-day subset.
+ */
+export function getExercisesByCategory(category: string, light?: boolean) {
   const inCategory = exercises.filter((e) => e.category === category);
-  if (category === "abs-cardio" && light) {
+  if (light === undefined) return inCategory;
+
+  if (category === "abs-cardio") {
+    if (!light) return inCategory;
     return LIGHT_ABS_EXERCISE_IDS.map((id) => inCategory.find((e) => e.id === id)).filter(
       (e): e is Exercise => Boolean(e)
     );
   }
+
+  if (category === "legs") {
+    const ids = light ? CHEST_DAY_LEG_EXERCISE_IDS : LEG_DAY_EXERCISE_IDS;
+    return ids.map((id) => inCategory.find((e) => e.id === id)).filter((e): e is Exercise => Boolean(e));
+  }
+
   return inCategory;
 }
 

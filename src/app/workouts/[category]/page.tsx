@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ChevronLeft, Clock, Dumbbell } from "lucide-react";
 import { categories, getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
-import { getTodaySchedule, isFullAbsDay } from "@/lib/data/schedule";
+import { getTodaySchedule, isFullAbsDay, isDedicatedLegDay } from "@/lib/data/schedule";
 import { ExerciseCard } from "@/components/exercises/ExerciseCard";
 import { ProgramReferenceImage } from "@/components/workouts/ProgramReferenceImage";
 import { Button } from "@/components/ui/Button";
@@ -18,7 +18,13 @@ export default function WorkoutCategoryPage({ params }: { params: { category: st
   if (!categories.some((c) => c.slug === slug)) notFound();
 
   const cat = getCategory(slug);
-  const light = slug === "abs-cardio" && !isFullAbsDay(getTodaySchedule().categories);
+  const todayCategories = getTodaySchedule().categories;
+  const light =
+    slug === "abs-cardio"
+      ? !isFullAbsDay(todayCategories)
+      : slug === "legs"
+      ? !isDedicatedLegDay(todayCategories)
+      : undefined;
   const exs = getExercisesByCategory(slug, light);
 
   return (
