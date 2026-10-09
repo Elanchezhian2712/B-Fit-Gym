@@ -21,12 +21,19 @@ export function CategoryWorkoutSection({ category, exercises, completed }: Categ
   return (
     <div className="space-y-3 sm:space-y-4">
       <GlassCard
-        className="p-4 sm:p-6"
+        hover
+        className="p-4 sm:p-6 relative overflow-hidden"
         style={{ backgroundImage: `linear-gradient(135deg, ${category.color}1f 0%, transparent 70%)` }}
       >
-        <div className="flex items-center justify-between flex-wrap gap-4">
+        <span
+          className="absolute left-0 top-3 bottom-3 w-1 rounded-full"
+          style={{ backgroundColor: category.color }}
+          aria-hidden="true"
+        />
+
+        <div className="flex items-center justify-between flex-wrap gap-3 sm:gap-4 pl-3">
           <div className="min-w-0">
-            <div className="flex items-center gap-2.5 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
               <p className="text-xs font-bold uppercase tracking-wide" style={{ color: category.color }}>
                 {category.name}
               </p>
@@ -36,28 +43,28 @@ export function CategoryWorkoutSection({ category, exercises, completed }: Categ
                 </span>
               )}
             </div>
-            <h2 className="text-lg sm:text-xl font-bold text-white mt-1">
+            <h2 className="text-base sm:text-xl font-bold text-white mt-1">
               {category.name} Workout{category.level ? ` – ${category.level}` : ""}
             </h2>
-            <div className="flex items-center gap-4 mt-2.5 sm:mt-3 text-white/55 text-xs sm:text-sm">
+            <div className="flex items-center gap-3.5 sm:gap-4 mt-2 sm:mt-3 text-white/55 text-xs sm:text-sm">
               <span className="flex items-center gap-1.5">
-                <Dumbbell size={14} /> {exercises.length} Exercises
+                <Dumbbell size={13} className="shrink-0" /> {exercises.length} Exercises
               </span>
               <span className="flex items-center gap-1.5">
-                <Clock size={14} /> ~{category.estimatedDuration} min
+                <Clock size={13} className="shrink-0" /> ~{category.estimatedDuration} min
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <Link href={`/session/${category.slug}`} className="flex-1 sm:flex-none">
-              <Button size="lg" className="w-full sm:w-auto">
+              <Button size="md" className="w-full sm:w-auto sm:px-6 sm:py-3 sm:text-base">
                 {completed ? "Redo Workout" : "Start Workout"}
               </Button>
             </Link>
             <button
               onClick={() => setExpanded((v) => !v)}
-              className="w-10 h-10 shrink-0 rounded-xl border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/5 transition-colors"
+              className="w-10 h-10 shrink-0 rounded-xl border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/5 active:scale-95 transition-all"
               aria-label={expanded ? "Collapse exercises" : "Expand exercises"}
               aria-expanded={expanded}
             >
@@ -67,7 +74,7 @@ export function CategoryWorkoutSection({ category, exercises, completed }: Categ
         </div>
 
         {!expanded && exercises.length > 0 && (
-          <p className="text-xs text-white/40 mt-4 pt-4 border-t border-white/[0.06] truncate">
+          <p className="text-xs text-white/40 mt-4 pt-4 border-t border-white/[0.06] truncate pl-3">
             {exercises.map((e) => e.name).join(" · ")}
           </p>
         )}

@@ -37,53 +37,65 @@ export function TodayOverviewHero({
 
   return (
     <GlassCard
-      className="p-5 sm:p-7 md:p-8 relative overflow-hidden animate-fadeIn"
+      className="p-4 sm:p-7 md:p-8 relative overflow-hidden animate-fadeIn"
       style={{ backgroundImage: `linear-gradient(135deg, ${primaryColor}1a 0%, transparent 65%)` }}
     >
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 sm:gap-8">
+      <div className="flex items-center justify-between gap-4 sm:gap-8">
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wide text-white/40">
+          <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wide text-white/40 truncate">
             {getGreeting()} &middot; {date}
           </p>
-          <h1 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white mt-1.5 leading-tight truncate">
+          <h1 className="text-xl sm:text-3xl md:text-[34px] font-bold text-white mt-1.5 leading-tight truncate">
             {title} Day
           </h1>
 
-          <div className="mt-3">
+          <div className="mt-2.5 sm:mt-3">
             {allDone ? (
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 border border-primary/30 px-2.5 py-1 rounded-lg">
+              <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-primary bg-primary/10 border border-primary/30 px-2.5 py-1 rounded-lg">
                 <CheckCircle2 size={13} /> Workout Complete
               </span>
             ) : inProgress ? (
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-secondary bg-secondary/10 border border-secondary/30 px-2.5 py-1 rounded-lg">
+              <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-secondary bg-secondary/10 border border-secondary/30 px-2.5 py-1 rounded-lg">
                 In Progress &middot; {completedCategories}/{total} Done
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-white/55 bg-white/[0.06] border border-white/10 px-2.5 py-1 rounded-lg">
+              <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-white/55 bg-white/[0.06] border border-white/10 px-2.5 py-1 rounded-lg">
                 Not Started
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-5 mt-5 text-white/60 text-sm">
-            <span className="flex items-center gap-1.5">
-              <Dumbbell size={15} /> {totalExercises} Exercises
+          <div className="flex items-center gap-3.5 sm:gap-5 mt-4 sm:mt-5 text-white/60 text-xs sm:text-sm">
+            <span className="flex items-center gap-1.5 truncate">
+              <Dumbbell size={14} className="shrink-0" /> {totalExercises} Exercises
             </span>
-            <span className="flex items-center gap-1.5">
-              <Clock size={15} /> ~{totalDuration} min
+            <span className="flex items-center gap-1.5 truncate">
+              <Clock size={14} className="shrink-0" /> ~{totalDuration} min
             </span>
           </div>
         </div>
 
-        <div className="flex items-center justify-center md:justify-end shrink-0">
-          <ProgressRing
-            progress={progress}
-            size={104}
-            strokeWidth={9}
-            color={primaryColor}
-            label={`${progress}%`}
-            sublabel={`${completedCategories}/${total} done`}
-          />
+        <div className="shrink-0">
+          <div className="sm:hidden">
+            <ProgressRing
+              progress={progress}
+              size={72}
+              strokeWidth={7}
+              color={primaryColor}
+              label={`${progress}%`}
+              sublabel={`${completedCategories}/${total}`}
+            />
+          </div>
+          <div className="hidden sm:block">
+            <ProgressRing
+              progress={progress}
+              size={104}
+              strokeWidth={9}
+              color={primaryColor}
+              label={`${progress}%`}
+              sublabel={`${completedCategories}/${total} done`}
+            />
+          </div>
         </div>
       </div>
     </GlassCard>
