@@ -1,4 +1,4 @@
-import { Exercise } from "@/lib/types";
+import { CategorySlug, Exercise } from "@/lib/types";
 
 export const exercises: Exercise[] = [
   // ===================== CHEST =====================
@@ -6,7 +6,9 @@ export const exercises: Exercise[] = [
     id: "push-up",
     name: "Push Up",
     category: "chest",
-    targetMuscle: "Chest / Triceps / Front Delts",
+    primaryMuscles: ["Chest"],
+    secondaryMuscles: ["Front delts", "Triceps", "Core"],
+    emphasis: ["middle-chest"],
     equipment: "Bodyweight",
     difficulty: "Intermediate",
     isBodyweight: true,
@@ -34,7 +36,9 @@ export const exercises: Exercise[] = [
     id: "flat-bench-press",
     name: "Flat Bench Press",
     category: "chest",
-    targetMuscle: "Chest",
+    primaryMuscles: ["Chest"],
+    secondaryMuscles: ["Front delts", "Triceps"],
+    emphasis: ["middle-chest"],
     equipment: "Barbell / Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -61,7 +65,9 @@ export const exercises: Exercise[] = [
     id: "incline-bench-press",
     name: "Incline Bench Press",
     category: "chest",
-    targetMuscle: "Upper Chest",
+    primaryMuscles: ["Upper chest"],
+    secondaryMuscles: ["Front delts", "Triceps"],
+    emphasis: ["upper-chest"],
     equipment: "Barbell / Incline Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -87,7 +93,9 @@ export const exercises: Exercise[] = [
     id: "decline-bench-press",
     name: "Decline Bench Press",
     category: "chest",
-    targetMuscle: "Lower Chest",
+    primaryMuscles: ["Lower chest"],
+    secondaryMuscles: ["Triceps", "Front delts"],
+    emphasis: ["lower-chest"],
     equipment: "Barbell / Decline Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -113,7 +121,9 @@ export const exercises: Exercise[] = [
     id: "cable-pec-fly",
     name: "Cable Pec Fly",
     category: "chest",
-    targetMuscle: "Chest (Inner)",
+    primaryMuscles: ["Chest"],
+    secondaryMuscles: ["Front delts"],
+    emphasis: ["middle-chest"],
     equipment: "Cable Machine",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -139,7 +149,9 @@ export const exercises: Exercise[] = [
     id: "butterfly-machine",
     name: "Butterfly Machine",
     category: "chest",
-    targetMuscle: "Chest (Inner)",
+    primaryMuscles: ["Chest"],
+    secondaryMuscles: ["Front delts"],
+    emphasis: ["middle-chest"],
     equipment: "Pec Deck Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -165,7 +177,9 @@ export const exercises: Exercise[] = [
     id: "dumbbell-pullover",
     name: "Dumbbell Pullover",
     category: "chest",
-    targetMuscle: "Chest / Lats",
+    primaryMuscles: ["Chest", "Lats"],
+    secondaryMuscles: ["Triceps (long head)", "Serratus"],
+    emphasis: ["lower-chest"],
     equipment: "Dumbbell / Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -193,7 +207,8 @@ export const exercises: Exercise[] = [
     id: "conventional-lat-pulldown",
     name: "Conventional Lat Pulldown",
     category: "back",
-    targetMuscle: "Lats",
+    primaryMuscles: ["Lats"],
+    secondaryMuscles: ["Biceps", "Mid back", "Rear delts"],
     equipment: "Cable Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -219,7 +234,8 @@ export const exercises: Exercise[] = [
     id: "behind-the-neck-lat-pulldown",
     name: "Behind the Neck Lat Pulldown",
     category: "back",
-    targetMuscle: "Lats / Upper Back",
+    primaryMuscles: ["Lats"],
+    secondaryMuscles: ["Mid back", "Rear delts", "Biceps"],
     equipment: "Cable Machine",
     difficulty: "Advanced",
     isBodyweight: false,
@@ -230,9 +246,11 @@ export const exercises: Exercise[] = [
     reps: "10-12",
     rest: "60-90 sec",
     animation: "pulldown",
-    safetyNote:
-      "Use only if comfortable and your shoulder mobility allows it. Stop if you experience shoulder or neck discomfort.",
-    canSkipReplace: true,
+    safety: {
+      level: "replace",
+      note: "Pulling the bar behind the head forces the shoulders into extreme external rotation under load and pushes the neck forward. It trains the lats no better than a front pulldown, so swap it for the Conventional Lat Pulldown.",
+      alternativeId: "conventional-lat-pulldown",
+    },
     instructions: [
       "Sit tall with thighs secured under the pad.",
       "Grip the bar wide, palms facing away.",
@@ -248,7 +266,8 @@ export const exercises: Exercise[] = [
     id: "reverse-grip-close-grip-lat-pulldown",
     name: "Reverse-Grip Close-Grip Lat Pulldown",
     category: "back",
-    targetMuscle: "Lats / Lower Lats",
+    primaryMuscles: ["Lats"],
+    secondaryMuscles: ["Biceps", "Mid back"],
     equipment: "Cable Machine",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -274,7 +293,8 @@ export const exercises: Exercise[] = [
     id: "close-grip-cable-row",
     name: "Close-Grip Cable Row",
     category: "back",
-    targetMuscle: "Mid Back / Lats",
+    primaryMuscles: ["Mid back", "Lats"],
+    secondaryMuscles: ["Biceps", "Rear delts"],
     equipment: "Cable Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -300,7 +320,8 @@ export const exercises: Exercise[] = [
     id: "landmine-row",
     name: "Landmine Row",
     category: "back",
-    targetMuscle: "Mid Back / Lats",
+    primaryMuscles: ["Mid back", "Lats"],
+    secondaryMuscles: ["Biceps", "Rear delts", "Lower back"],
     equipment: "Barbell / Landmine Attachment",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -326,7 +347,8 @@ export const exercises: Exercise[] = [
     id: "one-arm-dumbbell-row",
     name: "One-Arm Dumbbell Row",
     category: "back",
-    targetMuscle: "Lats / Mid Back",
+    primaryMuscles: ["Lats"],
+    secondaryMuscles: ["Mid back", "Biceps", "Rear delts"],
     equipment: "Dumbbell / Bench",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -354,7 +376,9 @@ export const exercises: Exercise[] = [
     id: "seated-shoulder-press-machine",
     name: "Seated Shoulder Press Machine",
     category: "shoulders",
-    targetMuscle: "Shoulders",
+    primaryMuscles: ["Front delts"],
+    secondaryMuscles: ["Side delts", "Triceps"],
+    emphasis: ["front-delts", "side-delts"],
     equipment: "Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -380,7 +404,9 @@ export const exercises: Exercise[] = [
     id: "one-arm-dumbbell-front-raise",
     name: "One-Arm Dumbbell Front Raise",
     category: "shoulders",
-    targetMuscle: "Front Deltoid",
+    primaryMuscles: ["Front delts"],
+    secondaryMuscles: ["Upper chest", "Side delts"],
+    emphasis: ["front-delts"],
     equipment: "Dumbbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -405,7 +431,9 @@ export const exercises: Exercise[] = [
     id: "dumbbell-lateral-raise",
     name: "Dumbbell Lateral Raise",
     category: "shoulders",
-    targetMuscle: "Side Deltoid",
+    primaryMuscles: ["Side delts"],
+    secondaryMuscles: ["Front delts", "Traps"],
+    emphasis: ["side-delts"],
     equipment: "Dumbbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -431,7 +459,9 @@ export const exercises: Exercise[] = [
     id: "upright-row-barbell-plates",
     name: "Upright Row – Barbell + Plates",
     category: "shoulders",
-    targetMuscle: "Shoulders / Traps",
+    primaryMuscles: ["Side delts", "Traps"],
+    secondaryMuscles: ["Front delts", "Biceps"],
+    emphasis: ["side-delts", "traps"],
     equipment: "Barbell + Plates",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -442,6 +472,11 @@ export const exercises: Exercise[] = [
     reps: "12",
     rest: "75 sec",
     animation: "upright-row",
+    safety: {
+      level: "caution",
+      note: "A narrow grip pulled high can pinch the shoulder joint. Use a shoulder-width or wider grip and stop when your elbows reach shoulder height. Lateral raises train the side delts with less risk.",
+      alternativeId: "dumbbell-lateral-raise",
+    },
     instructions: [
       "Grip the bar shoulder-width apart in front of your thighs.",
       "Pull the bar straight up toward the chin, leading with the elbows.",
@@ -457,7 +492,9 @@ export const exercises: Exercise[] = [
     id: "face-pull-cable",
     name: "Face Pull – Cable",
     category: "shoulders",
-    targetMuscle: "Rear Deltoid / Upper Back",
+    primaryMuscles: ["Rear delts"],
+    secondaryMuscles: ["Mid back", "Traps", "Rotator cuff"],
+    emphasis: ["rear-delts", "traps"],
     equipment: "Cable Machine with Rope",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -483,7 +520,9 @@ export const exercises: Exercise[] = [
     id: "dumbbell-shrugs",
     name: "Dumbbell Shrugs",
     category: "shoulders",
-    targetMuscle: "Trapezius",
+    primaryMuscles: ["Traps"],
+    secondaryMuscles: ["Forearms (grip)"],
+    emphasis: ["traps"],
     equipment: "Dumbbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -511,7 +550,8 @@ export const exercises: Exercise[] = [
     id: "bar-curl",
     name: "Bar Curl",
     category: "biceps",
-    targetMuscle: "Biceps",
+    primaryMuscles: ["Biceps"],
+    secondaryMuscles: ["Brachialis", "Forearms"],
     equipment: "EZ Bar / Barbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -540,7 +580,8 @@ export const exercises: Exercise[] = [
     id: "incline-dumbbell-curl-one-arm",
     name: "Incline Dumbbell Curl – One Arm at a Time",
     category: "biceps",
-    targetMuscle: "Biceps (Long Head)",
+    primaryMuscles: ["Biceps (long head)"],
+    secondaryMuscles: ["Brachialis"],
     equipment: "Dumbbell / Incline Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -566,7 +607,8 @@ export const exercises: Exercise[] = [
     id: "hammer-curl-one-arm",
     name: "Hammer Curl – One Arm at a Time",
     category: "biceps",
-    targetMuscle: "Biceps / Brachialis",
+    primaryMuscles: ["Brachialis", "Brachioradialis"],
+    secondaryMuscles: ["Biceps"],
     equipment: "Dumbbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -592,7 +634,8 @@ export const exercises: Exercise[] = [
     id: "dumbbell-bicep-preacher-curl-one-arm",
     name: "Dumbbell Bicep Preacher Curl – One Arm at a Time",
     category: "biceps",
-    targetMuscle: "Biceps",
+    primaryMuscles: ["Biceps (short head)"],
+    secondaryMuscles: ["Brachialis"],
     equipment: "Dumbbell / Preacher Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -618,7 +661,8 @@ export const exercises: Exercise[] = [
     id: "dumbbell-concentration-curl-one-arm",
     name: "Dumbbell Concentration Curl – One Arm at a Time",
     category: "biceps",
-    targetMuscle: "Biceps",
+    primaryMuscles: ["Biceps"],
+    secondaryMuscles: ["Brachialis"],
     equipment: "Dumbbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -646,7 +690,8 @@ export const exercises: Exercise[] = [
     id: "weighted-bench-dips",
     name: "Weighted Bench Dips",
     category: "triceps",
-    targetMuscle: "Triceps",
+    primaryMuscles: ["Triceps"],
+    secondaryMuscles: ["Front delts", "Chest"],
     equipment: "Bench / Weight Plate",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -657,6 +702,11 @@ export const exercises: Exercise[] = [
     reps: "10-12",
     rest: "60-90 sec",
     animation: "dip",
+    safety: {
+      level: "caution",
+      note: "Bench dips push the shoulder into deep extension, and added weight makes this worse. Stop when your upper arms are parallel to the floor, and switch to pushdowns if the front of your shoulder aches.",
+      alternativeId: "cable-pushdown",
+    },
     instructions: [
       "Place hands on the edge of a bench, legs extended out front.",
       "Place a weight plate across your lap for added resistance.",
@@ -672,7 +722,8 @@ export const exercises: Exercise[] = [
     id: "decline-bench-barbell-triceps-extension",
     name: "Decline Bench Barbell Triceps Extension",
     category: "triceps",
-    targetMuscle: "Triceps",
+    primaryMuscles: ["Triceps"],
+    secondaryMuscles: [],
     equipment: "Barbell / Decline Bench",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -698,7 +749,8 @@ export const exercises: Exercise[] = [
     id: "cable-pushdown",
     name: "Cable Pushdown",
     category: "triceps",
-    targetMuscle: "Triceps",
+    primaryMuscles: ["Triceps (lateral head)"],
+    secondaryMuscles: [],
     equipment: "Cable Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -724,7 +776,8 @@ export const exercises: Exercise[] = [
     id: "dumbbell-overhead-triceps-extension",
     name: "Dumbbell Overhead Triceps Extension",
     category: "triceps",
-    targetMuscle: "Triceps (Long Head)",
+    primaryMuscles: ["Triceps (long head)"],
+    secondaryMuscles: [],
     equipment: "Dumbbell",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -750,7 +803,8 @@ export const exercises: Exercise[] = [
     id: "dumbbell-triceps-kickback",
     name: "Dumbbell Triceps Kickback",
     category: "triceps",
-    targetMuscle: "Triceps",
+    primaryMuscles: ["Triceps"],
+    secondaryMuscles: ["Rear delts"],
     equipment: "Dumbbell",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -778,7 +832,8 @@ export const exercises: Exercise[] = [
     id: "squats-bodyweight",
     name: "Squats",
     category: "legs",
-    targetMuscle: "Quads / Glutes",
+    primaryMuscles: ["Quads", "Glutes"],
+    secondaryMuscles: ["Adductors", "Hamstrings", "Core"],
     equipment: "Bodyweight",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -804,7 +859,8 @@ export const exercises: Exercise[] = [
     id: "hack-squat",
     name: "Hack Squat",
     category: "legs",
-    targetMuscle: "Quadriceps Femoris",
+    primaryMuscles: ["Quads"],
+    secondaryMuscles: ["Glutes", "Adductors"],
     equipment: "Hack Squat Machine",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -830,7 +886,8 @@ export const exercises: Exercise[] = [
     id: "leg-press",
     name: "Leg Press",
     category: "legs",
-    targetMuscle: "Quads / Glutes / Hamstrings",
+    primaryMuscles: ["Quads", "Glutes"],
+    secondaryMuscles: ["Hamstrings", "Adductors"],
     equipment: "Leg Press Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -856,7 +913,8 @@ export const exercises: Exercise[] = [
     id: "lying-leg-curl",
     name: "Hamstring Curl",
     category: "legs",
-    targetMuscle: "Hamstrings",
+    primaryMuscles: ["Hamstrings"],
+    secondaryMuscles: ["Calves"],
     equipment: "Lying Leg Curl Machine",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -882,7 +940,8 @@ export const exercises: Exercise[] = [
     id: "leg-extension",
     name: "Leg Extension",
     category: "legs",
-    targetMuscle: "Quadriceps Femoris",
+    primaryMuscles: ["Quads"],
+    secondaryMuscles: [],
     equipment: "Leg Extension Machine",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -908,7 +967,8 @@ export const exercises: Exercise[] = [
     id: "dumbbell-lunge",
     name: "Dumbbell Lunge",
     category: "legs",
-    targetMuscle: "Quadriceps Femoris / Glutes",
+    primaryMuscles: ["Quads", "Glutes"],
+    secondaryMuscles: ["Hamstrings", "Adductors", "Calves"],
     equipment: "Dumbbells",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -934,7 +994,8 @@ export const exercises: Exercise[] = [
     id: "seated-calf-raise",
     name: "Seated Calf Raise",
     category: "legs",
-    targetMuscle: "Calves (Soleus)",
+    primaryMuscles: ["Calves (soleus)"],
+    secondaryMuscles: [],
     equipment: "Seated Calf Raise Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -959,7 +1020,8 @@ export const exercises: Exercise[] = [
     id: "standing-calf-raise",
     name: "Standing Calf Raise",
     category: "legs",
-    targetMuscle: "Calves (Gastrocnemius)",
+    primaryMuscles: ["Calves (gastrocnemius)"],
+    secondaryMuscles: ["Calves (soleus)"],
     equipment: "Standing Calf Raise Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -985,7 +1047,8 @@ export const exercises: Exercise[] = [
     id: "plank",
     name: "Plank",
     category: "abs-cardio",
-    targetMuscle: "Core (Abs, Obliques)",
+    primaryMuscles: ["Abs"],
+    secondaryMuscles: ["Obliques", "Lower back", "Glutes"],
     equipment: "Bodyweight",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1011,7 +1074,8 @@ export const exercises: Exercise[] = [
     id: "leg-raise",
     name: "Leg Raises",
     category: "abs-cardio",
-    targetMuscle: "Lower Abs",
+    primaryMuscles: ["Abs (lower emphasis)", "Hip flexors"],
+    secondaryMuscles: ["Obliques"],
     equipment: "Bodyweight / Mat",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1036,7 +1100,8 @@ export const exercises: Exercise[] = [
     id: "captain-chair-leg-raise",
     name: "Captain's Chair Leg Raise",
     category: "abs-cardio",
-    targetMuscle: "Lower Abs",
+    primaryMuscles: ["Abs (lower emphasis)", "Hip flexors"],
+    secondaryMuscles: ["Obliques", "Forearms (grip)"],
     equipment: "Captain's Chair Machine",
     difficulty: "Intermediate",
     isBodyweight: true,
@@ -1062,7 +1127,8 @@ export const exercises: Exercise[] = [
     id: "seated-knee-tuck",
     name: "Seated Knee Tuck",
     category: "abs-cardio",
-    targetMuscle: "Abs (Upper & Lower)",
+    primaryMuscles: ["Abs"],
+    secondaryMuscles: ["Hip flexors", "Obliques"],
     equipment: "Bodyweight / Mat",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1088,7 +1154,8 @@ export const exercises: Exercise[] = [
     id: "reverse-leg-crunch",
     name: "Reverse Leg Crunch",
     category: "abs-cardio",
-    targetMuscle: "Lower Abs",
+    primaryMuscles: ["Abs (lower emphasis)"],
+    secondaryMuscles: ["Hip flexors", "Obliques"],
     equipment: "Bodyweight / Mat",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1113,7 +1180,8 @@ export const exercises: Exercise[] = [
     id: "decline-bench-sit-up",
     name: "Decline Bench Sit-Up",
     category: "abs-cardio",
-    targetMuscle: "Upper & Lower Abs",
+    primaryMuscles: ["Abs", "Hip flexors"],
+    secondaryMuscles: ["Obliques"],
     equipment: "Decline Bench",
     difficulty: "Intermediate",
     isBodyweight: true,
@@ -1138,7 +1206,8 @@ export const exercises: Exercise[] = [
     id: "ab-crunch-machine",
     name: "Abdominal Crunch Machine",
     category: "abs-cardio",
-    targetMuscle: "Upper & Lower Abs",
+    primaryMuscles: ["Abs"],
+    secondaryMuscles: ["Obliques"],
     equipment: "Ab Crunch Machine",
     difficulty: "Beginner",
     isBodyweight: false,
@@ -1163,7 +1232,8 @@ export const exercises: Exercise[] = [
     id: "rope-crunches",
     name: "Rope Crunches (Cable)",
     category: "abs-cardio",
-    targetMuscle: "Upper & Lower Abs",
+    primaryMuscles: ["Abs"],
+    secondaryMuscles: ["Obliques"],
     equipment: "Cable Machine with Rope",
     difficulty: "Intermediate",
     isBodyweight: false,
@@ -1188,7 +1258,8 @@ export const exercises: Exercise[] = [
     id: "high-knees",
     name: "High Knees",
     category: "abs-cardio",
-    targetMuscle: "Cardio + Core (Lower Abs, Legs)",
+    primaryMuscles: ["Hip flexors", "Quads"],
+    secondaryMuscles: ["Calves", "Abs", "Glutes"],
     equipment: "Bodyweight",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1213,7 +1284,8 @@ export const exercises: Exercise[] = [
     id: "jumping-jacks",
     name: "Jumping Jacks",
     category: "abs-cardio",
-    targetMuscle: "Full Body Cardio (Abs, Legs, Arms)",
+    primaryMuscles: ["Calves", "Glutes"],
+    secondaryMuscles: ["Side delts", "Core"],
     equipment: "Bodyweight",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1238,7 +1310,8 @@ export const exercises: Exercise[] = [
     id: "walking",
     name: "Walking",
     category: "abs-cardio",
-    targetMuscle: "Low Intensity Cardio (Fat Loss)",
+    primaryMuscles: ["Glutes", "Calves"],
+    secondaryMuscles: ["Quads", "Hamstrings", "Core"],
     equipment: "Treadmill or Floor",
     difficulty: "Beginner",
     isBodyweight: true,
@@ -1263,7 +1336,7 @@ export const exercises: Exercise[] = [
 
 export const LIGHT_ABS_EXERCISE_IDS = ["plank", "leg-raise", "ab-crunch-machine"];
 
-// Chest+Legs combo day (e.g. Wednesday): a trimmed set that skips the Leg Press/Hamstring Curl machines.
+// Chest+Legs combo day (not in the current split): a trimmed set that skips the Leg Press/Hamstring Curl machines.
 export const CHEST_DAY_LEG_EXERCISE_IDS = [
   "squats-bodyweight",
   "hack-squat",
@@ -1273,7 +1346,7 @@ export const CHEST_DAY_LEG_EXERCISE_IDS = [
   "standing-calf-raise",
 ];
 
-// Dedicated Legs day (e.g. Friday): swaps in Leg Press + Hamstring Curl, skips Hack Squat/Leg Extension/Lunge.
+// Dedicated Legs day (e.g. Thursday): swaps in Leg Press + Hamstring Curl, skips Hack Squat/Leg Extension/Lunge.
 export const LEG_DAY_EXERCISE_IDS = [
   "squats-bodyweight",
   "leg-press",
@@ -1282,10 +1355,14 @@ export const LEG_DAY_EXERCISE_IDS = [
   "standing-calf-raise",
 ];
 
+// Chest accessory session (e.g. Saturday, paired with back): no pressing, just flys and the pullover.
+export const CHEST_ACCESSORY_EXERCISE_IDS = ["cable-pec-fly", "butterfly-machine", "dumbbell-pullover"];
+
 /**
  * `light` is undefined for a plain "give me everything in this category" lookup (exercise library,
  * category totals). Day-aware pages pass an explicit boolean: for abs-cardio, light picks the
- * 3-exercise finisher; for legs, light picks the chest-day subset and !light picks the leg-day subset.
+ * 3-exercise finisher; for legs, light picks the chest-day subset and !light picks the leg-day subset; for chest, light picks
+ * the accessory subset.
  */
 export function getExercisesByCategory(category: string, light?: boolean) {
   const inCategory = exercises.filter((e) => e.category === category);
@@ -1303,7 +1380,31 @@ export function getExercisesByCategory(category: string, light?: boolean) {
     return ids.map((id) => inCategory.find((e) => e.id === id)).filter((e): e is Exercise => Boolean(e));
   }
 
+  if (category === "chest" && light) {
+    return CHEST_ACCESSORY_EXERCISE_IDS.map((id) => inCategory.find((e) => e.id === id)).filter(
+      (e): e is Exercise => Boolean(e)
+    );
+  }
+
   return inCategory;
+}
+
+// Saved workout orders are keyed per variant, since legs, chest and abs-cardio have different exercise sets by day.
+export function getWorkoutKey(category: CategorySlug, light?: boolean) {
+  return light === undefined ? category : `${category}:${light ? "light" : "full"}`;
+}
+
+/**
+ * Applies a user's saved sequence on top of the default workout. Saved ids that no longer belong to the
+ * workout are dropped and exercises missing from the saved order are appended, so data changes never
+ * hide an exercise.
+ */
+export function applyWorkoutOrder(defaults: Exercise[], savedIds?: string[]) {
+  if (!savedIds?.length) return defaults;
+  const byId = new Map(defaults.map((e) => [e.id, e]));
+  const ordered = savedIds.map((id) => byId.get(id)).filter((e): e is Exercise => Boolean(e));
+  const rest = defaults.filter((e) => !savedIds.includes(e.id));
+  return [...ordered, ...rest];
 }
 
 export function getExerciseById(id: string) {

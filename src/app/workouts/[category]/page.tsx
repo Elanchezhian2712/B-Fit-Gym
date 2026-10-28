@@ -3,28 +3,21 @@ import { notFound } from "next/navigation";
 import { ChevronLeft, Clock, Dumbbell } from "lucide-react";
 import { categories, getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
-import { getTodaySchedule, isFullAbsDay, isDedicatedLegDay } from "@/lib/data/schedule";
-import { ExerciseCard } from "@/components/exercises/ExerciseCard";
+import { getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
+import { WorkoutExerciseList } from "@/components/workouts/WorkoutExerciseList";
 import { ProgramReferenceImage } from "@/components/workouts/ProgramReferenceImage";
 import { Button } from "@/components/ui/Button";
 import { CategorySlug } from "@/lib/types";
 
-export function generateStaticParams() {
-  return categories.map((c) => ({ category: c.slug }));
-}
+// The exercise list depends on today's split (e.g. Saturday chest is accessories only), so render per request.
+export const dynamic = "force-dynamic";
 
 export default function WorkoutCategoryPage({ params }: { params: { category: string } }) {
   const slug = params.category as CategorySlug;
   if (!categories.some((c) => c.slug === slug)) notFound();
 
   const cat = getCategory(slug);
-  const todayCategories = getTodaySchedule().categories;
-  const light =
-    slug === "abs-cardio"
-      ? !isFullAbsDay(todayCategories)
-      : slug === "legs"
-      ? !isDedicatedLegDay(todayCategories)
-      : undefined;
+  const light = getWorkoutVariant(slug, getTodaySchedule().categories);
   const exs = getExercisesByCategory(slug, light);
 
   return (
@@ -68,11 +61,7 @@ export default function WorkoutCategoryPage({ params }: { params: { category: st
 
       <ProgramReferenceImage category={slug} />
 
-      <div className="grid grid-cols-1 min-[440px]:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
-        {exs.map((ex) => (
-          <ExerciseCard key={ex.id} exercise={ex} />
-        ))}
-      </div>
+      <WorkoutExerciseList category={slug} light={light} />
     </div>
   );
 }

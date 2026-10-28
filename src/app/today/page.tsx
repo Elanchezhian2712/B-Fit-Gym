@@ -1,7 +1,7 @@
 "use client";
 
 import { Moon, Footprints, BedDouble } from "lucide-react";
-import { getTodaySchedule, isFullAbsDay, isDedicatedLegDay } from "@/lib/data/schedule";
+import { getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
 import { getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -33,22 +33,21 @@ export default function TodaysWorkoutPage() {
   const showRestDay = tookRestToday || (schedule.isRestDay && categories.length === 0);
   const showRecoveryDay = !tookRestToday && schedule.isRecoveryDay && categories.length === 0;
   const canTakeRest = !tookRestToday && !showRestDay && categories.length > 0;
-  const fullAbsDay = isFullAbsDay(categories);
-  const dedicatedLegDay = isDedicatedLegDay(categories);
 
   const completedToday = new Set(
     workoutSessions.filter((s) => s.date === date && s.completed).map((s) => s.category)
   );
 
-  const categoryData = categories.map((slug) => ({
-    slug,
-    category: getCategory(slug),
-    exercises: getExercisesByCategory(
+  const categoryData = categories.map((slug) => {
+    const light = getWorkoutVariant(slug, categories);
+    return {
       slug,
-      slug === "abs-cardio" ? !fullAbsDay : slug === "legs" ? !dedicatedLegDay : undefined
-    ),
-    completed: completedToday.has(slug),
-  }));
+      category: getCategory(slug),
+      light,
+      exercises: getExercisesByCategory(slug, light),
+      completed: completedToday.has(slug),
+    };
+  });
 
   const totalExercises = categoryData.reduce((sum, c) => sum + c.exercises.length, 0);
   const totalDuration = categoryData.reduce((sum, c) => sum + c.category.estimatedDuration, 0);
@@ -111,7 +110,7 @@ export default function TodaysWorkoutPage() {
               <CategoryWorkoutSection
                 key={c.slug}
                 category={c.category}
-                exercises={c.exercises}
+                light={c.light}
                 completed={c.completed}
               />
             ))}

@@ -143,11 +143,11 @@ export function ExerciseStatBar({ exercise }: ExerciseStatBarProps) {
               </span>
             </div>
             <p className="text-lg sm:text-xl font-extrabold text-white tracking-tight line-clamp-1">
-              {exercise.targetMuscle}
+              {exercise.primaryMuscles.join(", ")}
             </p>
           </div>
           <p className="text-[11px] text-white/45 mt-2 truncate">
-            {exercise.equipment}
+            {exercise.secondaryMuscles.length > 0 ? `Also: ${exercise.secondaryMuscles.join(", ")}` : exercise.equipment}
           </p>
         </div>
       </div>

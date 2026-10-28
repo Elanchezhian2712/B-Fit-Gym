@@ -3,20 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Clock, Dumbbell, CheckCircle2 } from "lucide-react";
-import { Category, Exercise } from "@/lib/types";
+import { Category } from "@/lib/types";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { ExerciseCard } from "@/components/exercises/ExerciseCard";
+import { WorkoutExerciseList } from "@/components/workouts/WorkoutExerciseList";
+import { useWorkoutExercises } from "@/lib/useWorkoutExercises";
 import { cn } from "@/lib/utils";
 
 interface CategoryWorkoutSectionProps {
   category: Category;
-  exercises: Exercise[];
+  light?: boolean;
   completed: boolean;
 }
 
-export function CategoryWorkoutSection({ category, exercises, completed }: CategoryWorkoutSectionProps) {
+export function CategoryWorkoutSection({ category, light, completed }: CategoryWorkoutSectionProps) {
   const [expanded, setExpanded] = useState(true);
+  const { exercises } = useWorkoutExercises(category.slug, light);
 
   return (
     <div className="space-y-3 sm:space-y-4">
@@ -80,13 +82,7 @@ export function CategoryWorkoutSection({ category, exercises, completed }: Categ
         )}
       </GlassCard>
 
-      {expanded && (
-        <div className="grid grid-cols-1 min-[440px]:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
-          {exercises.map((ex) => (
-            <ExerciseCard key={ex.id} exercise={ex} />
-          ))}
-        </div>
-      )}
+      {expanded && <WorkoutExerciseList category={category.slug} light={light} />}
     </div>
   );
 }

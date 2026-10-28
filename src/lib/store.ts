@@ -11,8 +11,8 @@ import {
   WorkoutSessionLog,
 } from "@/lib/types";
 import { exercises } from "@/lib/data/exercises";
-import { getExercisesByCategory } from "@/lib/data/exercises";
-import { getTodaySchedule, isFullAbsDay, isDedicatedLegDay } from "@/lib/data/schedule";
+import { applyWorkoutOrder, getExercisesByCategory, getWorkoutKey } from "@/lib/data/exercises";
+import { getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
 import { parseWarmup } from "@/lib/utils";
 
 function todayISO() {
@@ -57,6 +57,8 @@ interface FitnessState {
   activeSession: ActiveSession | null;
   restOverrides: Record<string, boolean>;
   postponedCategories: Record<string, CategorySlug[]>;
+  // User-arranged exercise sequence per workout (see getWorkoutKey). The library order never changes.
+  workoutOrders: Record<string, string[]>;
 
   addWeightEntry: (weight: number, date?: string) => void;
   setGoalWeight: (weight: number) => void;
@@ -69,6 +71,9 @@ interface FitnessState {
   completeSession: () => WorkoutSessionLog | null;
   cancelSession: () => void;
   takeRestToday: () => void;
+
+  setWorkoutOrder: (key: string, category: CategorySlug, exerciseIds: string[]) => void;
+  resetWorkoutOrder: (key: string) => void;
 
   getTracker: (date: string) => DailyTracker;
   toggleTrackerFlag: (
@@ -133,6 +138,7 @@ export const useFitnessStore = create<FitnessState>()(
       activeSession: null,
       restOverrides: {},
       postponedCategories: {},
+      workoutOrders: {},
 
       addWeightEntry: (weight, date) => {
         const d = date ?? todayISO();
@@ -148,14 +154,11 @@ export const useFitnessStore = create<FitnessState>()(
       setGoalWeight: (weight) => set({ goalWeight: weight }),
 
       startSession: (category) => {
-        const todayCategories = getTodaySchedule().categories;
-        const light =
-          category === "abs-cardio"
-            ? !isFullAbsDay(todayCategories)
-            : category === "legs"
-            ? !isDedicatedLegDay(todayCategories)
-            : undefined;
-        const exIds = getExercisesByCategory(category, light).map((e) => e.id);
+        const light = getWorkoutVariant(category, getTodaySchedule().categories);
+        const exIds = applyWorkoutOrder(
+          getExercisesByCategory(category, light),
+          get().workoutOrders[getWorkoutKey(category, light)]
+        ).map((e) => e.id);
         set({
           activeSession: {
             id: `session-${Date.now()}`,
@@ -267,6 +270,36 @@ export const useFitnessStore = create<FitnessState>()(
             restOverrides: { ...state.restOverrides, [today]: true },
             postponedCategories: { ...state.postponedCategories, [tomorrow]: mergedTomorrow },
           };
+        });
+      },
+
+      setWorkoutOrder: (key, category, exerciseIds) => {
+        set((state) => {
+          const session = state.activeSession;
+          // Re-sequence an in-progress session of the same workout, keeping the current exercise selected.
+          const sameWorkout =
+            session &&
+            session.category === category &&
+            session.exerciseIds.length === exerciseIds.length &&
+            exerciseIds.every((id) => session.exerciseIds.includes(id));
+          return {
+            workoutOrders: { ...state.workoutOrders, [key]: exerciseIds },
+            activeSession: sameWorkout
+              ? {
+                  ...session,
+                  exerciseIds,
+                  currentExerciseIndex: exerciseIds.indexOf(session.exerciseIds[session.currentExerciseIndex]),
+                }
+              : session,
+          };
+        });
+      },
+
+      resetWorkoutOrder: (key) => {
+        set((state) => {
+          const rest = { ...state.workoutOrders };
+          delete rest[key];
+          return { workoutOrders: rest };
         });
       },
 

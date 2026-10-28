@@ -90,7 +90,7 @@ export function ExercisePoseCompare({ exercise, className }: ExercisePoseCompare
               style={{ backgroundColor: cat.color }}
             />
             <span className="text-[11px] font-bold tracking-wider uppercase text-white/90">
-              Form Guide • {exercise.targetMuscle}
+              Form Guide • {exercise.primaryMuscles.join(", ")}
             </span>
           </div>
         </div>

@@ -52,11 +52,29 @@ export type AnimationType =
   | "jump"
   | "walk";
 
+// Emphasis regions within a muscle group. These are biases, not isolated muscles.
+export type MuscleRegion =
+  | "front-delts"
+  | "side-delts"
+  | "rear-delts"
+  | "traps"
+  | "upper-chest"
+  | "middle-chest"
+  | "lower-chest";
+
+export interface ExerciseSafety {
+  level: "replace" | "caution";
+  note: string;
+  alternativeId?: string;
+}
+
 export interface Exercise {
   id: string;
   name: string;
   category: CategorySlug;
-  targetMuscle: string;
+  primaryMuscles: string[];
+  secondaryMuscles: string[];
+  emphasis?: MuscleRegion[];
   equipment: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   isBodyweight: boolean;
@@ -67,8 +85,7 @@ export interface Exercise {
   reps: string;
   rest: string;
   animation: AnimationType;
-  safetyNote?: string;
-  canSkipReplace?: boolean;
+  safety?: ExerciseSafety;
   instructions: string[];
   commonMistakes: string[];
 }

@@ -9,18 +9,20 @@ import {
   CheckCircle2,
   AlertTriangle,
   Play,
-  RotateCcw,
   Sparkles,
   ShieldAlert,
   Dumbbell,
   Check,
+  Copy,
+  ArrowRight,
 } from "lucide-react";
 import { getExerciseById, getExercisesByCategory } from "@/lib/data/exercises";
+import { getOverlapGroup } from "@/lib/data/exerciseReview";
 import { getCategory } from "@/lib/data/categories";
 import { ExercisePoseCompare } from "@/components/exercises/ExercisePoseCompare";
 import { ExerciseStatBar } from "@/components/exercises/ExerciseStatBar";
+import { MuscleTags } from "@/components/exercises/MuscleTags";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { useFitnessStore } from "@/lib/store";
 import { useToast } from "@/components/common/ToastProvider";
@@ -34,13 +36,20 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
   const cat = getCategory(exercise.category);
   const router = useRouter();
   const { showToast } = useToast();
-  const [skipped, setSkipped] = useState(false);
   const [completedJustNow, setCompletedJustNow] = useState(false);
 
   const activeSession = useFitnessStore((s) => s.activeSession);
   const startSession = useFitnessStore((s) => s.startSession);
   const goToExercise = useFitnessStore((s) => s.goToExercise);
   const markExerciseComplete = useFitnessStore((s) => s.markExerciseComplete);
+
+  const alternative = exercise.safety?.alternativeId ? getExerciseById(exercise.safety.alternativeId) : undefined;
+  const overlap = getOverlapGroup(exercise.id);
+  const overlapping = (overlap?.exerciseIds ?? [])
+    .filter((otherId) => otherId !== exercise.id)
+    .map((otherId) => getExerciseById(otherId))
+    .filter((e): e is NonNullable<typeof e> => Boolean(e));
+  const isReplace = exercise.safety?.level === "replace";
 
   // Category sibling exercises for Prev/Next navigation
   const categoryExercises = getExercisesByCategory(exercise.category);
@@ -161,23 +170,11 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
           {/* Exercise Info & Meta Card */}
           <GlassCard className="p-5 sm:p-7 rounded-2xl bg-base-900/80 border-white/10 space-y-5">
             <div>
-              <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
-                <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  {exercise.name}
-                </h1>
+              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
+                {exercise.name}
+              </h1>
 
-                <Badge
-                  className="px-3 py-1 text-xs uppercase font-extrabold tracking-wider"
-                  style={{
-                    color: cat.color,
-                    borderColor: `${cat.color}60`,
-                    backgroundColor: `${cat.color}15`,
-                    boxShadow: `0 0 16px -2px ${cat.color}25`,
-                  }}
-                >
-                  {exercise.targetMuscle}
-                </Badge>
-              </div>
+              <MuscleTags exercise={exercise} accent={cat.color} variant="chips" className="mb-4" />
 
               {/* Meta Tags Row */}
               <div className="flex flex-wrap items-center gap-2 text-xs text-white/60">
@@ -205,18 +202,59 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
             </div>
 
             {/* Safety Notice Banner (if any) */}
-            {exercise.safetyNote && (
-              <div className="flex gap-3 items-start p-3.5 rounded-xl bg-amber-500/[0.08] border border-amber-500/30">
-                <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+            {exercise.safety && (
+              <div
+                className={`flex gap-3 items-start p-3.5 rounded-xl border ${
+                  isReplace ? "bg-rose-500/[0.08] border-rose-500/30" : "bg-amber-500/[0.08] border-amber-500/30"
+                }`}
+              >
+                <div
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
+                    isReplace ? "bg-rose-500/20 text-rose-400" : "bg-amber-500/20 text-amber-400"
+                  }`}
+                >
                   <ShieldAlert size={16} />
                 </div>
-                <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-0.5">
-                    Safety Precaution
+                <div className="min-w-0">
+                  <p
+                    className={`text-[11px] font-bold uppercase tracking-wider mb-0.5 ${
+                      isReplace ? "text-rose-400" : "text-amber-400"
+                    }`}
+                  >
+                    {isReplace ? "Flagged for Replacement" : "Safety Precaution"}
                   </p>
-                  <p className="text-xs text-amber-200/90 leading-relaxed">
-                    {exercise.safetyNote}
+                  <p className={`text-xs leading-relaxed ${isReplace ? "text-rose-100/90" : "text-amber-200/90"}`}>
+                    {exercise.safety.note}
                   </p>
+                  {alternative && (
+                    <Link
+                      href={`/exercises/${alternative.id}`}
+                      className="inline-flex items-center gap-1.5 mt-2 text-xs font-bold text-white hover:text-primary"
+                    >
+                      Safer alternative: {alternative.name} <ArrowRight size={12} />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Overlapping movements */}
+            {overlap && overlapping.length > 0 && (
+              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-1 flex items-center gap-1.5">
+                  <Copy size={12} /> Overlaps: {overlap.label} · pick {overlap.pick} of {overlap.exerciseIds.length}
+                </p>
+                <p className="text-xs text-white/65 leading-relaxed">{overlap.advice}</p>
+                <div className="flex flex-wrap gap-1.5 mt-2.5">
+                  {overlapping.map((other) => (
+                    <Link
+                      key={other.id}
+                      href={`/exercises/${other.id}`}
+                      className="px-2.5 py-1 rounded-md text-xs font-medium border border-white/10 bg-white/[0.04] text-white/70 hover:text-white hover:border-white/25"
+                    >
+                      {other.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}
@@ -253,25 +291,6 @@ export default function ExerciseDetailPage({ params }: { params?: { id?: string 
                 )}
               </Button>
 
-              {/* Optional Skip / Replace Link */}
-              {exercise.canSkipReplace && (
-                <div className="text-center pt-1">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSkipped((v) => !v);
-                      showToast(
-                        skipped ? "Exercise restored" : "Exercise marked as skipped/replaced",
-                        "info"
-                      );
-                    }}
-                    className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors underline underline-offset-4 cursor-pointer"
-                  >
-                    <RotateCcw size={12} />
-                    {skipped ? "Undo skip / Restore to routine" : "Can't do this? Skip or substitute"}
-                  </button>
-                </div>
-              )}
             </div>
           </GlassCard>
 

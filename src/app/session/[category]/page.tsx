@@ -12,6 +12,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ExercisePoseCompare } from "@/components/exercises/ExercisePoseCompare";
+import { MuscleTags } from "@/components/exercises/MuscleTags";
 import { SetTracker } from "@/components/session/SetTracker";
 import { RestTimer } from "@/components/session/RestTimer";
 import { WorkoutComplete } from "@/components/session/WorkoutComplete";
@@ -137,14 +138,15 @@ export default function SessionPage({ params }: { params: { category: string } }
         <ExercisePoseCompare exercise={exercise} className="h-44" />
         <div className="p-5 md:p-6">
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1">{exercise.name}</h1>
-          <p className="text-sm mb-4" style={{ color: cat.color }}>
-            {exercise.targetMuscle}
-          </p>
+          <MuscleTags exercise={exercise} accent={cat.color} className="text-sm mb-4" />
 
-          {exercise.safetyNote && (
+          {exercise.safety && (
             <div className="flex gap-2.5 items-start p-3.5 rounded-xl bg-muscle-legs/10 border border-muscle-legs/30 mb-4">
               <AlertTriangle size={16} className="text-muscle-legs shrink-0 mt-0.5" />
-              <p className="text-xs text-muscle-legs/90">{exercise.safetyNote}</p>
+              <p className="text-xs text-muscle-legs/90">
+                {exercise.safety.level === "replace" && <strong>Flagged for replacement. </strong>}
+                {exercise.safety.note}
+              </p>
             </div>
           )}
 

@@ -6,9 +6,12 @@ import { getCategory } from "@/lib/data/categories";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
 import { ExerciseDemo } from "@/components/exercises/ExerciseDemo";
+import { MuscleTags } from "@/components/exercises/MuscleTags";
+import { ExerciseFlags } from "@/components/exercises/ExerciseFlags";
 import { Clock, Weight } from "lucide-react";
 
-export function ExerciseCard({ exercise }: { exercise: Exercise }) {
+// `position` is the exercise's 1-based place in a workout sequence; omit it in the library.
+export function ExerciseCard({ exercise, position }: { exercise: Exercise; position?: number }) {
   const cat = getCategory(exercise.category);
 
   return (
@@ -20,16 +23,25 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
         hover
         className="overflow-hidden flex flex-col h-full cursor-pointer transition-all duration-300"
       >
-        <ExerciseDemo exercise={exercise} className="h-32 min-[440px]:h-36 sm:h-40" showLabel={false} />
+        <div className="relative">
+          <ExerciseDemo exercise={exercise} className="h-32 min-[440px]:h-36 sm:h-40" showLabel={false} />
+          {position !== undefined && (
+            <span
+              className="absolute top-2 left-2 z-20 w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center text-base-900"
+              style={{ backgroundColor: cat.color }}
+            >
+              {position}
+            </span>
+          )}
+        </div>
         <div className="p-3.5 sm:p-4 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-2 mb-1">
             <h3 className="text-sm sm:text-[15px] font-bold text-white group-hover:text-primary transition-colors leading-snug line-clamp-2">
               {exercise.name}
             </h3>
           </div>
-          <p className="text-xs mb-2.5 font-medium" style={{ color: cat.color }}>
-            {exercise.targetMuscle}
-          </p>
+          <MuscleTags exercise={exercise} accent={cat.color} className="mb-2.5" />
+          <ExerciseFlags exercise={exercise} className="mb-2.5" />
 
           {exercise.warmup && (
             <Badge variant="warning" className="w-fit mb-2.5 text-[10px] sm:text-xs py-0.5 px-2">
