@@ -12,7 +12,7 @@ import {
 } from "@/lib/types";
 import { exercises } from "@/lib/data/exercises";
 import { applyWorkoutOrder, getExercisesByCategory, getWorkoutKey } from "@/lib/data/exercises";
-import { getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
+import { getTodaySchedule, getWorkoutLimit, getWorkoutVariant } from "@/lib/data/schedule";
 import { parseWarmup } from "@/lib/utils";
 
 function todayISO() {
@@ -154,9 +154,10 @@ export const useFitnessStore = create<FitnessState>()(
       setGoalWeight: (weight) => set({ goalWeight: weight }),
 
       startSession: (category) => {
-        const light = getWorkoutVariant(category, getTodaySchedule().categories);
+        const todayCategories = getTodaySchedule().categories;
+        const light = getWorkoutVariant(category, todayCategories);
         const exIds = applyWorkoutOrder(
-          getExercisesByCategory(category, light),
+          getExercisesByCategory(category, light, getWorkoutLimit(category, todayCategories)),
           get().workoutOrders[getWorkoutKey(category, light)]
         ).map((e) => e.id);
         set({

@@ -1,7 +1,7 @@
 "use client";
 
 import { Moon, Footprints, BedDouble } from "lucide-react";
-import { getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
+import { getTodaySchedule, getWorkoutLimit, getWorkoutVariant, MINUTES_PER_EXERCISE } from "@/lib/data/schedule";
 import { getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -40,17 +40,19 @@ export default function TodaysWorkoutPage() {
 
   const categoryData = categories.map((slug) => {
     const light = getWorkoutVariant(slug, categories);
+    const limit = getWorkoutLimit(slug, categories);
     return {
       slug,
       category: getCategory(slug),
       light,
-      exercises: getExercisesByCategory(slug, light),
+      limit,
+      exercises: getExercisesByCategory(slug, light, limit),
       completed: completedToday.has(slug),
     };
   });
 
   const totalExercises = categoryData.reduce((sum, c) => sum + c.exercises.length, 0);
-  const totalDuration = categoryData.reduce((sum, c) => sum + c.category.estimatedDuration, 0);
+  const totalDuration = totalExercises * MINUTES_PER_EXERCISE;
   const completedCount = categoryData.filter((c) => c.completed).length;
 
   return (
@@ -111,6 +113,7 @@ export default function TodaysWorkoutPage() {
                 key={c.slug}
                 category={c.category}
                 light={c.light}
+                limit={c.limit}
                 completed={c.completed}
               />
             ))}

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ChevronLeft, Clock, Dumbbell } from "lucide-react";
 import { categories, getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
-import { getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
+import { getTodaySchedule, getWorkoutLimit, getWorkoutVariant } from "@/lib/data/schedule";
 import { WorkoutExerciseList } from "@/components/workouts/WorkoutExerciseList";
 import { ProgramReferenceImage } from "@/components/workouts/ProgramReferenceImage";
 import { Button } from "@/components/ui/Button";
@@ -17,8 +17,10 @@ export default function WorkoutCategoryPage({ params }: { params: { category: st
   if (!categories.some((c) => c.slug === slug)) notFound();
 
   const cat = getCategory(slug);
-  const light = getWorkoutVariant(slug, getTodaySchedule().categories);
-  const exs = getExercisesByCategory(slug, light);
+  const todayCategories = getTodaySchedule().categories;
+  const light = getWorkoutVariant(slug, todayCategories);
+  const limit = getWorkoutLimit(slug, todayCategories);
+  const exs = getExercisesByCategory(slug, light, limit);
 
   return (
     <div className="space-y-6">
@@ -61,7 +63,7 @@ export default function WorkoutCategoryPage({ params }: { params: { category: st
 
       <ProgramReferenceImage category={slug} />
 
-      <WorkoutExerciseList category={slug} light={light} />
+      <WorkoutExerciseList category={slug} light={light} limit={limit} />
     </div>
   );
 }

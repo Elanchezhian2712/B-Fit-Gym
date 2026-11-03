@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/Button";
 interface WorkoutExerciseListProps {
   category: CategorySlug;
   light?: boolean;
+  limit?: number;
   gridClassName?: string;
 }
 
@@ -25,9 +26,10 @@ interface WorkoutExerciseListProps {
 export function WorkoutExerciseList({
   category,
   light,
+  limit,
   gridClassName = "grid grid-cols-1 min-[440px]:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4",
 }: WorkoutExerciseListProps) {
-  const { exercises, isCustomOrder, setOrder, resetOrder } = useWorkoutExercises(category, light);
+  const { exercises, isCustomOrder, setOrder, resetOrder } = useWorkoutExercises(category, light, limit);
   const [editing, setEditing] = useState(false);
   const accent = getCategory(category).color;
   const ids = exercises.map((e) => e.id);

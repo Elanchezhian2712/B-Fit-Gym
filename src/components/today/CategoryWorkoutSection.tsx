@@ -13,12 +13,13 @@ import { cn } from "@/lib/utils";
 interface CategoryWorkoutSectionProps {
   category: Category;
   light?: boolean;
+  limit?: number;
   completed: boolean;
 }
 
-export function CategoryWorkoutSection({ category, light, completed }: CategoryWorkoutSectionProps) {
+export function CategoryWorkoutSection({ category, light, limit, completed }: CategoryWorkoutSectionProps) {
   const [expanded, setExpanded] = useState(true);
-  const { exercises } = useWorkoutExercises(category.slug, light);
+  const { exercises } = useWorkoutExercises(category.slug, light, limit);
 
   return (
     <div className="space-y-3 sm:space-y-4">
@@ -82,7 +83,7 @@ export function CategoryWorkoutSection({ category, light, completed }: CategoryW
         )}
       </GlassCard>
 
-      {expanded && <WorkoutExerciseList category={category.slug} light={light} />}
+      {expanded && <WorkoutExerciseList category={category.slug} light={light} limit={limit} />}
     </div>
   );
 }

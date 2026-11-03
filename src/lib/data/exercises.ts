@@ -1364,7 +1364,12 @@ export const CHEST_ACCESSORY_EXERCISE_IDS = ["cable-pec-fly", "butterfly-machine
  * 3-exercise finisher; for legs, light picks the chest-day subset and !light picks the leg-day subset; for chest, light picks
  * the accessory subset.
  */
-export function getExercisesByCategory(category: string, light?: boolean) {
+export function getExercisesByCategory(category: string, light?: boolean, limit?: number) {
+  const list = getVariantExercises(category, light);
+  return limit === undefined ? list : list.slice(0, limit);
+}
+
+function getVariantExercises(category: string, light?: boolean) {
   const inCategory = exercises.filter((e) => e.category === category);
   if (light === undefined) return inCategory;
 

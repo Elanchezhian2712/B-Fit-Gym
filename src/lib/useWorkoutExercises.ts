@@ -6,7 +6,7 @@ import { applyWorkoutOrder, getExercisesByCategory, getWorkoutKey } from "@/lib/
 import { useFitnessStore } from "@/lib/store";
 
 /** A workout's exercises in the user's saved order, with actions to rearrange or reset it. */
-export function useWorkoutExercises(category: CategorySlug, light?: boolean) {
+export function useWorkoutExercises(category: CategorySlug, light?: boolean, limit?: number) {
   const key = getWorkoutKey(category, light);
   const savedIds = useFitnessStore((s) => s.workoutOrders[key]);
   const setWorkoutOrder = useFitnessStore((s) => s.setWorkoutOrder);
@@ -16,7 +16,7 @@ export function useWorkoutExercises(category: CategorySlug, light?: boolean) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const defaults = getExercisesByCategory(category, light);
+  const defaults = getExercisesByCategory(category, light, limit);
   const exercises = applyWorkoutOrder(defaults, mounted ? savedIds : undefined);
   const isCustomOrder = exercises.some((e, i) => e.id !== defaults[i].id);
 

@@ -1,7 +1,13 @@
 "use client";
 
 import { Moon } from "lucide-react";
-import { weeklySchedule, getTodaySchedule, getWorkoutVariant } from "@/lib/data/schedule";
+import {
+  weeklySchedule,
+  getTodaySchedule,
+  getWorkoutLimit,
+  getWorkoutVariant,
+  MINUTES_PER_EXERCISE,
+} from "@/lib/data/schedule";
 import { getCategory } from "@/lib/data/categories";
 import { getExercisesByCategory } from "@/lib/data/exercises";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -19,10 +25,20 @@ export default function WeeklyPlanPage() {
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {weeklySchedule.map((d) => {
           const isToday = d.day === today;
+          const total = d.categories.reduce(
+            (sum, slug) =>
+              sum +
+              getExercisesByCategory(slug, getWorkoutVariant(slug, d.categories), getWorkoutLimit(slug, d.categories))
+                .length,
+            0
+          );
           return (
             <GlassCard key={d.day} className={`p-5 space-y-4 ${isToday ? "ring-1 ring-primary" : ""}`}>
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold text-white">{d.day}</h2>
+                {total > 0 && (
+                  <span className="ml-auto mr-3 text-xs text-white/40">~{total * MINUTES_PER_EXERCISE} min</span>
+                )}
                 {isToday && (
                   <span className="text-xs font-semibold text-primary uppercase tracking-wide">Today</span>
                 )}
@@ -37,7 +53,11 @@ export default function WeeklyPlanPage() {
                 <div className="space-y-4">
                   {d.categories.map((slug) => {
                     const category = getCategory(slug);
-                    const list = getExercisesByCategory(slug, getWorkoutVariant(slug, d.categories));
+                    const list = getExercisesByCategory(
+                      slug,
+                      getWorkoutVariant(slug, d.categories),
+                      getWorkoutLimit(slug, d.categories)
+                    );
                     return (
                       <div key={slug} className="space-y-2">
                         <h3 className="text-sm font-semibold" style={{ color: category.color }}>
