@@ -10,13 +10,13 @@ export interface DaySchedule {
 }
 
 export const weeklySchedule: DaySchedule[] = [
-  { day: "Monday", shortDay: "Mon", categories: ["chest", "triceps"], isRestDay: false, isRecoveryDay: false },
+  // Push / Pull / Legs: push and pull twice a week, legs on Wed and again alongside Saturday's pull.
+  { day: "Monday", shortDay: "Mon", categories: ["chest", "shoulders", "triceps"], isRestDay: false, isRecoveryDay: false },
   { day: "Tuesday", shortDay: "Tue", categories: ["back", "biceps"], isRestDay: false, isRecoveryDay: false },
-  { day: "Wednesday", shortDay: "Wed", categories: [], isRestDay: true, isRecoveryDay: false },
-  { day: "Thursday", shortDay: "Thu", categories: ["legs", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
-  { day: "Friday", shortDay: "Fri", categories: ["shoulders", "triceps"], isRestDay: false, isRecoveryDay: false },
-  // Back + chest accessories + arms: chest gets its accessory variant here (see isChestAccessoryDay).
-  { day: "Saturday", shortDay: "Sat", categories: ["back", "chest", "biceps", "triceps"], isRestDay: false, isRecoveryDay: false },
+  { day: "Wednesday", shortDay: "Wed", categories: ["legs", "abs-cardio"], isRestDay: false, isRecoveryDay: false },
+  { day: "Thursday", shortDay: "Thu", categories: [], isRestDay: true, isRecoveryDay: false },
+  { day: "Friday", shortDay: "Fri", categories: ["chest", "shoulders", "triceps"], isRestDay: false, isRecoveryDay: false },
+  { day: "Saturday", shortDay: "Sat", categories: ["back", "biceps", "legs"], isRestDay: false, isRecoveryDay: false },
   { day: "Sunday", shortDay: "Sun", categories: [], isRestDay: true, isRecoveryDay: false },
 ];
 
