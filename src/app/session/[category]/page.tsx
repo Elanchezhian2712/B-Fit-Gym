@@ -5,7 +5,7 @@ import { notFound, useRouter } from "next/navigation";
 import Link from "next/link";
 import { X, ChevronRight, AlertTriangle } from "lucide-react";
 import { categories, getCategory } from "@/lib/data/categories";
-import { getExerciseById } from "@/lib/data/exercises";
+import { getExerciseById, getSetReps } from "@/lib/data/exercises";
 import { useFitnessStore } from "@/lib/store";
 import { CategorySlug, WorkoutSessionLog } from "@/lib/types";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -76,7 +76,7 @@ export default function SessionPage({ params }: { params: { category: string } }
       ? exercise!.warmup
         ? parseWarmup(exercise!.warmup).reps
         : "12"
-      : exercise!.reps;
+      : getSetReps(exercise!, set.setNumber - 1);
     const willComplete = !set.completed;
     updateSet(exerciseId, setIndex, {
       completed: willComplete,
@@ -172,7 +172,7 @@ export default function SessionPage({ params }: { params: { category: string } }
                   set={set}
                   previous={previousSets ? previousSets[i] ?? null : null}
                   defaultWeight={isWarmupRow ? warmupParsed?.weight ?? "Light" : exercise.workingWeight ?? "BW"}
-                  defaultReps={isWarmupRow ? warmupParsed?.reps ?? "12" : exercise.reps}
+                  defaultReps={isWarmupRow ? warmupParsed?.reps ?? "12" : getSetReps(exercise, set.setNumber - 1)}
                   accent={cat.color}
                   onChange={(patch) => updateSet(exerciseId, i, patch)}
                   onToggleComplete={() => handleToggleSet(i)}

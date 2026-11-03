@@ -11,7 +11,7 @@ import {
   WorkoutSessionLog,
 } from "@/lib/types";
 import { exercises } from "@/lib/data/exercises";
-import { applyWorkoutOrder, getExercisesByCategory, getWorkoutKey } from "@/lib/data/exercises";
+import { applyWorkoutOrder, getExercisesByCategory, getSetReps, getWorkoutKey } from "@/lib/data/exercises";
 import { getTodaySchedule, getWorkoutLimit, getWorkoutVariant } from "@/lib/data/schedule";
 import { parseWarmup } from "@/lib/utils";
 
@@ -95,7 +95,7 @@ function buildInitialLogs(exerciseIds: string[]): Record<string, ExerciseLog> {
     const workingSets: SetLog[] = Array.from({ length: workingSetCount }, (_, i) => ({
       setNumber: i + 1,
       weight: ex?.workingWeight ?? "",
-      reps: ex?.reps ?? "",
+      reps: ex ? getSetReps(ex, i) : "",
       completed: false,
     }));
 

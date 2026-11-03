@@ -16,7 +16,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: "Bodyweight",
     sets: 3,
-    reps: "10-20",
+    reps: "12 / 10 / 8",
     rest: "45-60 sec",
     animation: "pushup",
     instructions: [
@@ -46,7 +46,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "press-horizontal",
     instructions: [
@@ -75,7 +75,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "press-horizontal",
     instructions: [
@@ -103,7 +103,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "press-horizontal",
     instructions: [
@@ -131,7 +131,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "fly",
     instructions: [
@@ -159,7 +159,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "fly",
     instructions: [
@@ -187,7 +187,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "pullover",
     instructions: [
@@ -216,7 +216,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "pulldown",
     instructions: [
@@ -243,7 +243,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "pulldown",
     safety: {
@@ -275,7 +275,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "pulldown",
     instructions: [
@@ -302,7 +302,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "row",
     instructions: [
@@ -329,7 +329,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12 each side",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "row",
     instructions: [
@@ -356,7 +356,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12 each arm",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "row",
     instructions: [
@@ -386,7 +386,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "10 kg",
     sets: 3,
-    reps: "12",
+    reps: "12 / 10 / 8",
     rest: "90 sec",
     animation: "press-overhead",
     instructions: [
@@ -414,7 +414,7 @@ export const exercises: Exercise[] = [
     warmup: "2.5 kg/arm × 12",
     workingWeight: "5 kg/arm",
     sets: 3,
-    reps: "12 each arm",
+    reps: "12 / 10 / 8",
     rest: "60 sec",
     animation: "raise-front",
     instructions: [
@@ -441,7 +441,7 @@ export const exercises: Exercise[] = [
     warmup: "2.5 kg/arm × 12",
     workingWeight: "5 kg/arm",
     sets: 3,
-    reps: "12",
+    reps: "12 / 10 / 8",
     rest: "60 sec",
     animation: "raise-lateral",
     instructions: [
@@ -469,7 +469,7 @@ export const exercises: Exercise[] = [
     warmup: "2.5 kg each side × 12",
     workingWeight: "5 kg each side",
     sets: 3,
-    reps: "12",
+    reps: "12 / 10 / 8",
     rest: "75 sec",
     animation: "upright-row",
     safety: {
@@ -502,7 +502,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "10 kg",
     sets: 3,
-    reps: "12",
+    reps: "12 / 10 / 8",
     rest: "60 sec",
     animation: "face-pull",
     instructions: [
@@ -530,7 +530,7 @@ export const exercises: Exercise[] = [
     warmup: "5 kg/hand × 12",
     workingWeight: "10 kg/hand",
     sets: 3,
-    reps: "12",
+    reps: "12 / 10 / 8",
     rest: "75 sec",
     animation: "shrug",
     instructions: [
@@ -559,7 +559,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "75-90 sec",
     animation: "curl",
     instructions: [
@@ -589,7 +589,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "curl-unilateral",
     instructions: [
@@ -616,7 +616,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "curl-unilateral",
     instructions: [
@@ -643,7 +643,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "curl-unilateral",
     instructions: [
@@ -670,7 +670,7 @@ export const exercises: Exercise[] = [
     warmup: "Light × 12",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "curl-unilateral",
     instructions: [
@@ -699,7 +699,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "dip",
     safety: {
@@ -731,7 +731,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "extension-triceps",
     instructions: [
@@ -758,7 +758,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "pushdown",
     instructions: [
@@ -785,7 +785,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "extension-triceps",
     instructions: [
@@ -812,7 +812,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "kickback",
     instructions: [
@@ -841,7 +841,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: "Bodyweight Only",
     sets: 3,
-    reps: "30",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "squat",
     instructions: [
@@ -868,7 +868,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "8-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "squat",
     instructions: [
@@ -895,7 +895,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-12",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "leg-press",
     instructions: [
@@ -922,7 +922,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "legcurl",
     instructions: [
@@ -949,7 +949,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-15",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "leg-extension",
     instructions: [
@@ -976,7 +976,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "10-15 each leg",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "squat",
     instructions: [
@@ -1003,7 +1003,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "15-20",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "calf-raise",
     instructions: [
@@ -1029,7 +1029,7 @@ export const exercises: Exercise[] = [
     warmup: "1 light-weight warm-up set × 12 reps",
     workingWeight: "2.5 kg → 5 kg progression",
     sets: 3,
-    reps: "15-20",
+    reps: "12 / 10 / 8",
     rest: "60-90 sec",
     animation: "calf-raise",
     instructions: [
@@ -1083,7 +1083,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "10-15",
+    reps: "12 / 10 / 8",
     rest: "45 sec",
     animation: "leg-raise",
     instructions: [
@@ -1109,7 +1109,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "10-15",
+    reps: "12 / 10 / 8",
     rest: "45 sec",
     animation: "leg-raise",
     instructions: [
@@ -1136,7 +1136,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "45 sec",
     animation: "knee-tuck",
     instructions: [
@@ -1163,7 +1163,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "45 sec",
     animation: "reverse-crunch",
     instructions: [
@@ -1189,7 +1189,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "45 sec",
     animation: "crunch",
     instructions: [
@@ -1215,7 +1215,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "60 sec",
     animation: "crunch",
     instructions: [
@@ -1241,7 +1241,7 @@ export const exercises: Exercise[] = [
     warmup: null,
     workingWeight: null,
     sets: 3,
-    reps: "12-15",
+    reps: "12 / 10 / 8",
     rest: "60 sec",
     animation: "cable-crunch",
     instructions: [
@@ -1410,6 +1410,12 @@ export function applyWorkoutOrder(defaults: Exercise[], savedIds?: string[]) {
   const ordered = savedIds.map((id) => byId.get(id)).filter((e): e is Exercise => Boolean(e));
   const rest = defaults.filter((e) => !savedIds.includes(e.id));
   return [...ordered, ...rest];
+}
+
+// Reps for one working set: "12 / 10 / 8" gives 12, 10, 8 for sets 1-3; timed exercises keep their single value.
+export function getSetReps(exercise: Exercise, workingSetIndex: number) {
+  const parts = exercise.reps.split("/").map((p) => p.trim());
+  return parts[Math.min(workingSetIndex, parts.length - 1)];
 }
 
 export function getExerciseById(id: string) {
